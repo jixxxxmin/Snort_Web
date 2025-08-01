@@ -1,0 +1,45 @@
+:root {
+  --header-height: 100px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+/* 상단 배너 (스크롤 시 사라짐) */
+#header {
+  height: var(--header-height);
+  background: #eee;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+/* 전체 레이아웃 */
+#main-container {
+  display: flex;
+}
+
+/* 왼쪽 메뉴바: 스크롤 따라 고정됨 */
+#sidebar {
+  width: 25%;
+  padding: 20px;
+  background-color: #f5f5f5;
+
+  position: sticky;
+  top: 0;
+  height: fit-content; /* 고정 크기 요소만큼만 */
+  align-self: flex-start;
+}
+
+/* 콘텐츠 영역 */
+#content {
+  width: 75%;
+  padding: 20px;
+}

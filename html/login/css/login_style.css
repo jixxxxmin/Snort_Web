@@ -72,8 +72,7 @@ button:hover {
   font-family: Arial, sans-serif; /* 본문과 동일한 글씨체 */
   font-size: 1rem;                /* label/input과 동일 크기 */
   font-weight: 400;               /* 필요 시 굵기 조정 */
-  margin-top: 6px;                /* 필드와 간격 */
-  margin-bottom: 12px;            /* 버튼과 간격 */
+  margin: 1em 0;
   display: none;
 }
 

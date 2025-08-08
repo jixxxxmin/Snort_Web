@@ -1,11 +1,17 @@
 
 (function () {
-  function showErrorIfNeeded() {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("login_failed") === "1") {
-      const el = document.getElementById("error-msg");
-      if (el) el.hidden = false;
-    }
+  const params = new URLSearchParams(window.location.search);
+  
+  const failed = params.get("login_failed");
+  const el = document.getElementById("login-error");
+
+  if (!el) return;
+
+  if (failed === "1") {
+    el.textContent = "Invalid ID or password.";
+    el.style.display = "block";
+  } else {
+    el.textContent = "";
+    el.style.display = "none";
   }
-  showErrorIfNeeded();
 })();

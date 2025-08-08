@@ -1,22 +1,23 @@
 
-document.getElementById("login-form").addEventListener("submit", function(e) {
-    const id = document.getElementById("id").value.trim();
-    const pw = document.getElementById("password").value.trim();
-    const errorBox = document.getElementById("error-msg");
+document.querySelector("form").addEventListener("submit", function(e) {
+    const id = document.getElementById("id");
+    const pw = document.getElementById("password");
 
-    if (!id) {
+    if (!id.value.trim()) {
         e.preventDefault();
-        errorBox.textContent = "아이디를 입력하세요.";
-        errorBox.style.display = "block";
+        id.setCustomValidity("아이디를 입력하세요.");
+        id.reportValidity();
         return;
+    } else {
+        id.setCustomValidity("");
     }
 
-    if (!pw) {
+    if (!pw.value.trim()) {
         e.preventDefault();
-        errorBox.textContent = "비밀번호를 입력하세요.";
-        errorBox.style.display = "block";
+        pw.setCustomValidity("비밀번호를 입력하세요.");
+        pw.reportValidity();
         return;
+    } else {
+        pw.setCustomValidity("");
     }
-
-    errorBox.style.display = "none";
 });

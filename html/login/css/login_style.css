@@ -68,10 +68,17 @@ button:hover {
 }
 
 /* 에러 메시지: 제목과 ID 사이 고정 높이 확보 */
-.error-msg {
+.error {
+  display: none;           /* 기본 비표시 */
+  min-height: 22px;        /* 실패 안 떠도 공간 유지 → 레이아웃 점프 방지 */
+  margin: -10px 0 24px;    /* 제목 아래 간격 보정 후 ID 위로 충분한 여백 */
   color: #d32f2f;
-  font-size: 0.9rem;
-  margin-top: 6px;
-  margin-bottom: 12px; /* 버튼과 간격 */
-  display: none;       /* 기본 숨김 */
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* 작은 화면 대응 */
+@media (max-width: 480px) {
+  .login-container { width: 90%; padding: 32px 20px; }
+  h1.login-title { font-size: 1.6rem; margin-bottom: 28px; }
 }

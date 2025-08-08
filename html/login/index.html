@@ -14,7 +14,6 @@
 
         <div class="login-container">
             <h1 class="login-title">Login</h1>
-            <div id="login-error" class="error" role="alert" aria-live="polite"></div>
                 
             <form method="post" action="/logintest" novalidate>
                 <div class="form-group">
@@ -25,6 +24,8 @@
                     <label for="password">Password</label>
                     <input id="password" name="password" type="password" autocomplete="current-password" required>
                 </div>
+
+                <div id="login-error" class="error" role="alert" aria-live="polite"></div>
                 <button type="submit">Sign In</button>
             </form>
         </div>    

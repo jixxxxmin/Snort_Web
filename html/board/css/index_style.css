@@ -1,0 +1,128 @@
+/* 공통 스타일: 로그인/관리자 페이지의 배경 및 폰트 통일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f6f8;
+    color: #111;
+    margin: 0;
+    padding: 0;
+}
+
+/* 헤더 */
+.board-header {
+    background-color: #fff;
+    padding: 2.5vh 4vw;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.board-title {
+    margin: 0;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 700;
+    color: #2e7d32;
+}
+
+/* 메인 컨테이너 레이아웃 (기존 메인 페이지 구조) */
+.main-container {
+    display: flex;
+    padding-top: 20px;
+    min-height: calc(100vh - 100px);
+}
+
+/* 사이드바 (기존 메인 페이지 sticky 속성 반영) */
+.sidebar {
+    width: 25%;
+    padding: 20px;
+    background-color: #fff;
+    border-right: 1px solid #e0e0e0;
+    
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+    align-self: flex-start;
+}
+
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-list li {
+    margin-bottom: 10px;
+}
+
+.menu-list a {
+    display: block;
+    padding: 10px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+    font-weight: bold;
+}
+
+.menu-list a:hover {
+    background-color: #f0f0f0;
+}
+
+.sub-menu {
+    list-style: none;
+    padding: 10px 0 0 20px;
+    margin: 0;
+}
+
+.sub-menu li {
+    margin-bottom: 5px;
+}
+
+.sub-menu a {
+    font-weight: normal;
+    padding: 5px 10px;
+}
+
+/* 게시글 콘텐츠 영역 */
+.board-content {
+    width: 75%;
+    padding: 0 4vw 20px 4vw;
+}
+
+.board-controls {
+    display: flex;
+    /* 정렬 기능을 제거했으므로 검색창을 오른쪽 끝으로 보냅니다. */
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* .sort-select 스타일은 제거되었습니다. */
+
+.search-box {
+    display: flex;
+}
+
+.search-box input {
+    border: 1px solid #ccc;
+    border-radius: 6px 0 0 6px;
+    padding: 8px 12px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-box button {
+    background-color: #2e7d32;
+    color: #fff;
+    border: none;
+    border-radius: 0 6px 6px 0;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background-color: #1b5e20;
+}

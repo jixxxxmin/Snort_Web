@@ -1,6 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', function() {
-    const menuUrl = '/board/menu';
+    const menuUrl = '/menu';
     const mainMenu = document.getElementById('main-menu');
 
     fetch(menuUrl)

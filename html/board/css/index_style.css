@@ -110,17 +110,23 @@ body {
 }
 
 /* --- 수정된 부분: 메뉴 호버 및 활성 상태 --- */
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 .main-menu-title:hover, .submenu a:hover {
     background-color: #f1f3f5;
 }
 
+=======
+.main-menu-title:hover,
+.submenu a:hover,
+>>>>>>> Stashed changes
 .main-menu-item.pinned > .main-menu-title,
-.submenu a.submenu-active {
-    background-color: #e9f5ea; /* 선택된 메뉴는 모두 연한 파스텔톤 녹색으로 통일 */
+.submenu a.submenu-active { /* 선택된 서브메뉴 스타일 추가 */
+    background-color: #e9f5ea;
     color: #1e4b20;
 }
 
+<<<<<<< Updated upstream
 .submenu a.submenu-active {
     font-weight: 500; /* 선택된 서브메뉴만 약간 더 굵게 */
 }
@@ -135,6 +141,8 @@ body {
 }
 
 >>>>>>> parent of a414933 (Update index_style.css)
+=======
+>>>>>>> Stashed changes
 
 /* 게시글 콘텐츠 영역 */
 .board-content {
@@ -199,28 +207,36 @@ body {
 /* --- 게시판 테이블 스타일 --- */
 .post-table {
     width: 100%;
+<<<<<<< Updated upstream
 <<<<<<< HEAD
     border-collapse: separate;
     border-spacing: 0 2px;
 =======
     border-collapse: collapse;
 >>>>>>> parent of a414933 (Update index_style.css)
+=======
+    border-collapse: collapse;
+>>>>>>> Stashed changes
     font-size: 0.95rem;
     order: 1;
 }
 
 .post-table th, .post-table td {
     padding: 12px 10px;
+<<<<<<< Updated upstream
 <<<<<<< HEAD
     background-color: #ffffff;
 =======
     border-bottom: 1px solid #e9ecef;
 >>>>>>> parent of a414933 (Update index_style.css)
+=======
+    border-bottom: 1px solid #e9ecef;
+>>>>>>> Stashed changes
 }
 
-/* --- 수정된 부분: 테이블 헤더 --- */
 .post-table thead th {
     font-weight: 500;
+<<<<<<< Updated upstream
 <<<<<<< HEAD
     color: #495057; /* 원래 글자색으로 롤백 */
     border-top: 1px solid #adb5bd; /* 위쪽 테두리 추가 */
@@ -230,6 +246,11 @@ body {
     border-top: 1px solid #adb5bd;
     border-bottom-width: 2px;
 >>>>>>> parent of a414933 (Update index_style.css)
+=======
+    color: #495057;
+    border-top: 1px solid #adb5bd;
+    border-bottom-width: 2px;
+>>>>>>> Stashed changes
     background-color: #f8f9fa;
     text-align: center;
 }
@@ -247,10 +268,13 @@ body {
 
 .post-table td {
     color: #343a40;
+<<<<<<< Updated upstream
 <<<<<<< HEAD
     border-bottom: 1px solid #f1f3f5;
 =======
 >>>>>>> parent of a414933 (Update index_style.css)
+=======
+>>>>>>> Stashed changes
 }
 
 .post-table td.col-num,

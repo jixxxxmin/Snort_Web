@@ -201,9 +201,10 @@ body {
     text-align: center;
 }
 
-/* --- 추가: 헤더 셀 사이에만 연한 세로줄 추가 --- */
-.post-table thead th:not(:last-child) {
-    border-right: 1px solid #dee2e6;
+/* --- 수정: 헤더와 본문 셀 사이에 연한 세로줄 추가 --- */
+.post-table th:not(:last-child),
+.post-table td:not(:last-child) {
+    border-right: 1px solid #e9ecef;
 }
 
 /* --- 수정된 부분: 테이블 내용 정렬 및 패딩 --- */

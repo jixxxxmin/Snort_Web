@@ -112,11 +112,15 @@ body {
 /* 메인 메뉴에 마우스를 올렸을 때 */
 .main-menu-title:hover {
     background-color: #2e7d32; /* 예: 연한 회색 */
+    color: #ffffff;
+    font-weight: 600;
 }
 
 /* 서브메뉴에 마우스를 올렸을 때 */
 .submenu a:hover {
     background-color: #d9f3d9; /* 예: 조금 더 진한 회색 */
+    color: #2e7d32;
+    font-weight: 600;
 }
 
 /* 선택된 메인 메뉴 (사이트 메인 색상) */

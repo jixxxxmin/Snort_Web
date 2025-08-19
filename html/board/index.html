@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ko">
     <head>
         <meta charset="UTF-8">
@@ -7,10 +6,11 @@
         <title>게시판 메인 페이지</title>
         <link rel="stylesheet" href="./css/index_style.css">
     </head>
-
+    
     <body>
         <script src="./js/getmenu.js"></script>
-
+        <script src="./js/gettitle.js"></script>
+        
         <header class="board-header">
             <h1 class="board-title">Snort Rules</h1>
         </header>
@@ -21,14 +21,33 @@
                 </ul>
             </aside>
 
-            <section class="board-content">
+            <div class="placeholder-content" id="placeholder-content">
+                <h2>Snort Rule 게시판</h2>
+                <p>좌측 메뉴를 선택하여 게시글을 확인하세요.</p>
+            </div>
+
+            <section class="board-content hidden" id="board-content-section">
+                <table class="post-table">
+                    <thead>
+                        <tr>
+                            <th class="col-num">번호</th>
+                            <th class="col-title">제목</th>
+                            <th class="col-date">작성일</th>
+                        </tr>
+                    </thead>
+                    <tbody id="post-list-body">
+                    </tbody>
+                </table>
+
+                <div class="pagination" id="pagination-controls">
+                </div>
+                
                 <div class="board-controls">
                     <div class="search-box">
                         <input type="text" placeholder="검색어를 입력하세요">
                         <button>검색</button>
                     </div>
                 </div>
-                <p style="text-align: center; padding: 50px 0; color: #777;">아직 등록된 게시글이 없습니다. 첫 글을 작성해보세요!</p>
             </section>
         </div>
     </body>

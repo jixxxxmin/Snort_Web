@@ -89,8 +89,6 @@ body {
     transition: max-height 0.35s ease-in-out;
 }
 
-/* --- 수정된 부분 --- */
-/* 마우스를 올리거나, 'pinned' 클래스가 있을 때 서브메뉴 펼치기 */
 .main-menu-item:hover .submenu,
 .main-menu-item.pinned .submenu {
     max-height: 500px;
@@ -111,8 +109,6 @@ body {
     transition: background-color 0.2s ease-out, color 0.2s ease-out;
 }
 
-/* --- 수정된 부분 --- */
-/* 호버 효과 및 고정 상태 스타일 */
 .main-menu-title:hover,
 .submenu a:hover,
 .main-menu-item.pinned > .main-menu-title {
@@ -121,7 +117,7 @@ body {
 }
 
 
-/* 게시글 콘텐츠 영역 */
+/* 게시글 콘텐츠 영역 (Flexbox로 구조 변경) */
 .board-content {
     flex-grow: 1;
     padding: 25px;
@@ -129,15 +125,19 @@ body {
     border-radius: 10px;
     border: 1px solid #dee2e6;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
 }
 
+/* 검색창 (위치 이동 및 스타일 변경) */
 .board-controls {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-bottom: 25px;
-    padding-bottom: 25px;
-    border-bottom: 1px solid #e9ecef;
+    margin-top: 25px; /* 위쪽 여백으로 변경 */
+    padding-top: 25px; /* 위쪽 패딩으로 변경 */
+    border-top: 1px solid #e9ecef; /* 위쪽 테두리로 변경 */
+    order: 3; /* Flexbox 순서를 3번으로 지정하여 맨 아래로 이동 */
 }
 
 .search-box {
@@ -172,4 +172,108 @@ body {
 
 .search-box button:hover {
     background-color: #1b5e20;
+}
+
+/* --- 게시판 테이블 스타일 --- */
+.post-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    order: 1; /* Flexbox 순서를 1번으로 지정 */
+}
+
+.post-table th, .post-table td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.post-table thead th {
+    font-weight: 500;
+    color: #495057;
+    border-top: 1px solid #adb5bd;
+    border-bottom-width: 2px;
+    background-color: #f8f9fa;
+    text-align: center; /* 모든 헤더 텍스트를 가운데 정렬 */
+}
+
+.col-num { width: 10%; text-align: center; }
+.col-title { width: 70%; } /* 본문 제목은 왼쪽 정렬 유지 */
+.col-date { width: 20%; text-align: center; }
+
+.post-table tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
+.post-table td {
+    color: #343a40;
+}
+
+.post-table .no-posts {
+    text-align: center;
+    padding: 50px 0;
+    color: #868e96;
+}
+
+/* --- 페이지네이션 스타일 --- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    gap: 5px;
+    order: 2; /* Flexbox 순서를 2번으로 지정 */
+}
+
+.pagination button {
+    border: 1px solid #ced4da;
+    background-color: #fff;
+    color: #495057;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.pagination button:hover {
+    background-color: #e9ecef;
+}
+
+.pagination button.active {
+    background-color: #2e7d32;
+    color: #fff;
+    border-color: #2e7d32;
+    font-weight: 500;
+}
+
+.pagination button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* --- 플레이스홀더 및 숨김 스타일 --- */
+
+.placeholder-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+    color: #adb5bd;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.placeholder-content h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none !important; /* 다른 스타일보다 우선 적용하여 확실하게 숨김 */
 }

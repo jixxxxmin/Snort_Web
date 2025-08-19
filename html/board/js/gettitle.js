@@ -12,7 +12,7 @@ window.fetchBoardPosts = (idType, id) => {
     let currentPage = 1;
     const postsPerPage = 10;
 
-    const url = `board/title?${idType}=${id}`;
+    const url = `gettitle?${idType}=${id}`;
     
     fetch(url)
         .then(response => {

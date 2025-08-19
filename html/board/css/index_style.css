@@ -106,16 +106,21 @@ body {
     text-decoration: none;
     color: #495057;
     font-size: 0.95rem;
-    transition: background-color 0.2s ease-out, color 0.2s ease-out;
+    transition: background-color 0.2s ease-out, color 0.2s ease-out, font-weight 0.2s;
 }
 
 /* --- 수정된 부분: 메뉴 호버 및 활성 상태 --- */
 .main-menu-title:hover,
-.submenu a:hover,
-.main-menu-item.pinned > .main-menu-title,
-.submenu a.submenu-active { /* 선택된 서브메뉴 스타일 추가 */
+.main-menu-item.pinned > .main-menu-title {
     background-color: #e9f5ea;
     color: #1e4b20;
+}
+
+.submenu a:hover,
+.submenu a.submenu-active {
+    background-color: #dcf0dd; /* 더 진한 초록색 배경 */
+    color: #1a431c;
+    font-weight: 500; /* 글씨를 약간 더 굵게 */
 }
 
 
@@ -131,10 +136,10 @@ body {
     flex-direction: column;
 }
 
-/* --- 수정된 부분: 검색창 --- */
+/* 검색창 */
 .board-controls {
     display: flex;
-    justify-content: center; /* 중앙 정렬 */
+    justify-content: center;
     align-items: center;
     margin-top: 25px;
     padding-top: 25px;
@@ -144,12 +149,12 @@ body {
 
 .search-box {
     display: flex;
-    width: 60%; /* 너비 비율로 설정 */
-    max-width: 500px; /* 너무 커지지 않도록 최대 너비 지정 */
+    width: 60%;
+    max-width: 500px;
 }
 
 .search-box input {
-    flex-grow: 1; /* 남은 공간을 모두 차지하도록 변경 */
+    flex-grow: 1;
     border: 1px solid #ced4da;
     border-right: none;
     border-radius: 6px 0 0 6px;
@@ -179,53 +184,52 @@ body {
     background-color: #1b5e20;
 }
 
-/* --- 게시판 테이블 스타일 --- */
+/* --- 게시판 테이블 스타일 (수정됨) --- */
 .post-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate; /* 셀 분리 */
+    border-spacing: 0 2px; /* 수평 간격 0, 수직 간격 2px */
     font-size: 0.95rem;
     order: 1;
 }
 
 .post-table th, .post-table td {
     padding: 12px 10px;
-    border-bottom: 1px solid #e9ecef;
+    background-color: #ffffff; /* 모든 셀 배경을 흰색으로 */
 }
 
 .post-table thead th {
     font-weight: 500;
     color: #495057;
     border-top: 1px solid #adb5bd;
-    border-bottom-width: 2px;
+    border-bottom: 2px solid #adb5bd;
     background-color: #f8f9fa;
     text-align: center;
 }
 
-/* --- 수정: 헤더와 본문 셀 사이에 연한 세로줄 추가 --- */
-.post-table th:not(:last-child),
-.post-table td:not(:last-child) {
-    border-right: 4px solid #ffffff;
+.post-table thead th:not(:last-child) {
+    border-right: 1px solid #e9ecef;
 }
 
-/* --- 수정된 부분: 테이블 내용 정렬 및 패딩 --- */
 .col-num { width: 10%; }
 .col-title { width: 70%; }
 .col-date { width: 20%; }
 
 .post-table td {
     color: #343a40;
+    border-bottom: 1px solid #f1f3f5; /* 셀 아래에 아주 연한 선 추가 */
 }
 
 .post-table td.col-num,
 .post-table td.col-date {
-    text-align: center; /* 번호와 작성일 내용 가운데 정렬 */
+    text-align: center;
 }
 
 .post-table td.col-title {
-    padding-left: 35px; /* --- 수정: 제목 내용 왼쪽에 여백 추가 --- */
+    padding-left: 40px;
 }
 
-.post-table tbody tr:hover {
+.post-table tbody tr:hover td {
     background-color: #f1f3f5;
 }
 

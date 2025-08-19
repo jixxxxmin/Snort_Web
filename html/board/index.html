@@ -1,37 +1,35 @@
 <!DOCTYPE html>
+
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시판 메인 페이지</title>
-    <link rel="stylesheet" href="./css/index_style.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>게시판 메인 페이지</title>
+        <link rel="stylesheet" href="./css/index_style.css">
+    </head>
 
-    <header class="board-header">
-        <h1 class="board-title">Snort Rules</h1>
-    </header>
+    <body>
+        <script src="./js/getmenu.js"></script>
 
-    <div class="main-container">
+        <header class="board-header">
+            <h1 class="board-title">Snort Rules</h1>
+        </header>
 
-        <aside class="sidebar">
-            <ul class="menu-list" id="main-menu">
-            </ul>
-        </aside>
+        <div class="main-container">
+            <aside class="sidebar">
+                <ul class="menu-list" id="main-menu">
+                </ul>
+            </aside>
 
-        <section class="board-content">
-            <div class="board-controls">
-                <div class="search-box">
-                    <input type="text" placeholder="검색어를 입력하세요">
-                    <button>검색</button>
+            <section class="board-content">
+                <div class="board-controls">
+                    <div class="search-box">
+                        <input type="text" placeholder="검색어를 입력하세요">
+                        <button>검색</button>
+                    </div>
                 </div>
-            </div>
-            <p style="text-align: center; padding: 50px 0; color: #777;">아직 등록된 게시글이 없습니다. 첫 글을 작성해보세요!</p>
-        </section>
-
-    </div>
-
-    <script src="./js/menu.js"></script>
-
-</body>
+                <p style="text-align: center; padding: 50px 0; color: #777;">아직 등록된 게시글이 없습니다. 첫 글을 작성해보세요!</p>
+            </section>
+        </div>
+    </body>
 </html>

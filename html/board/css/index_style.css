@@ -124,20 +124,6 @@ body {
     font-weight: 600;
 }
 
-/* 클릭해서 선택(고정)된 메인 메뉴 */
-.main-menu-item.pinned > .main-menu-title {
-    background-color: #2e7d32;
-    color: #ffffff;
-}
-
-/* 클릭해서 선택된 서브메뉴 */
-.submenu a.submenu-active {
-    background-color: #eaf4ea;
-    color: #2e7d32;
-    font-weight: 500;
-}
-
-
 /* 선택된 메인 메뉴 (사이트 메인 색상) */
 .main-menu-item.pinned > .main-menu-title {
     background-color: #2e7d32;

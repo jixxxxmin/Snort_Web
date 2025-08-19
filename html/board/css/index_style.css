@@ -15,7 +15,8 @@ body {
 /* 헤더 */
 .board-header {
     background-color: #ffffff;
-    padding: 20px 4vw;
+    /* 상하 패딩을 화면 높이(vh)에 비례하도록 변경 */
+    padding: 3vh 4vw; 
     border-bottom: 1px solid #dee2e6;
     display: flex;
     justify-content: space-between;
@@ -33,7 +34,8 @@ body {
 /* 메인 컨테이너 레이아웃 */
 .main-container {
     display: flex;
-    padding: 25px 4vw;
+    /* 위쪽 패딩을 화면 높이(vh)에 비례하도록 변경 */
+    padding: 4vh 4vw; 
     gap: 25px;
 }
 
@@ -47,7 +49,8 @@ body {
     background-color: #ffffff;
     border: 1px solid #dee2e6;
     position: sticky;
-    top: 25px;
+    /* main-container의 상단 패딩과 맞춥니다. */
+    top: 4vh; 
     height: fit-content;
     align-self: flex-start;
     border-radius: 10px;

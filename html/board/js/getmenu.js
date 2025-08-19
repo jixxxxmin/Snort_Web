@@ -48,6 +48,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             
                             subLink.classList.add('submenu-active');
                             
+                            const parentMainMenu = subLink.closest('.main-menu-item');
+                            if (parentMainMenu) {
+                                parentMainMenu.classList.add('pinned');
+                            }
+                            
                             window.fetchBoardPosts('submenu_id', subLink.dataset.submenuId);
                         });
 

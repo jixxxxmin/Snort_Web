@@ -223,7 +223,7 @@ body {
 }
 
 .post-table thead th:not(:last-child) {
-    border-right: 1px solid #e9ecef;
+    border-right: 2px solid #ffffff;
 }
 
 .col-num { width: 10%; }

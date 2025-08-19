@@ -112,14 +112,15 @@ body {
 /* --- 수정된 부분: 메뉴 호버 및 활성 상태 --- */
 .main-menu-title:hover,
 .main-menu-item.pinned > .main-menu-title {
-    background-color: #e9f5ea;
-    color: #1e4b20;
+    background-color: #dcf0dd;
+    color: #1a431c;
+    font-weight: 500;
 }
 
 .submenu a:hover,
 .submenu a.submenu-active {
-    background-color: #dcf0dd; /* 더 진한 초록색 배경 */
-    color: #1a431c;
+    background-color: #e9f5ea; /* 더 진한 초록색 배경 */
+    color: #1e4b20;
     font-weight: 500; /* 글씨를 약간 더 굵게 */
 }
 

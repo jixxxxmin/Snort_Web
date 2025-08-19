@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function() {
     const menuUrl = 'getmenu';
     const mainMenu = document.getElementById('main-menu');

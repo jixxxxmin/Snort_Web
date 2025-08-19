@@ -1,25 +1,31 @@
+/* Google Fonts에서 Noto Sans KR 폰트 가져오기 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
 /* 공통 스타일 */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f6f8;
-    color: #111;
+    font-family: 'Noto Sans KR', Arial, sans-serif; /* 기본 폰트를 Noto Sans KR로 변경 */
+    background-color: #f8f9fa; /* 배경색을 약간 더 부드럽게 변경 */
+    color: #212529; /* 기본 글자색을 좀 더 진하게 */
     margin: 0;
     padding: 0;
+    -webkit-font-smoothing: antialiased; /* 폰트를 부드럽게 렌더링 */
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* 헤더 */
 .board-header {
-    background-color: #fff;
-    padding: 2.5vh 4vw;
-    border-bottom: 1px solid #e0e0e0;
+    background-color: #ffffff;
+    padding: 20px 4vw;
+    border-bottom: 1px solid #dee2e6; /* 테두리 색을 연하게 */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03); /* 부드러운 그림자 추가 */
 }
 
 .board-title {
     margin: 0;
-    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-size: clamp(1.5rem, 2.5vw, 1.8rem);
     font-weight: 700;
     color: #2e7d32;
 }
@@ -27,24 +33,25 @@ body {
 /* 메인 컨테이너 레이아웃 */
 .main-container {
     display: flex;
-    padding: 20px 4vw;
-    gap: 20px;
-    min-height: calc(100vh - 100px);
+    padding: 25px 4vw;
+    gap: 25px; /* 컴포넌트 간 간격 조정 */
 }
 
-/* 사이드바 (화면 너비의 25%를 차지하도록 수정) */
+/* 사이드바 */
 .sidebar {
-    width: 25%; /* 화면 비율에 따라 너비 조절 */
-    min-width: 200px; /* 너무 좁아지지 않도록 최소 너비 설정 */
+    width: 25%;
+    min-width: 220px;
+    max-width: 280px;
     flex-shrink: 0;
-    padding: 20px;
-    background-color: #fff;
-    border-right: 1px solid #e0e0e0;
+    padding: 15px; /* 내부 여백 조정 */
+    background-color: #ffffff;
+    border: 1px solid #dee2e6; /* 테두리 추가 */
     position: sticky;
-    top: 20px;
+    top: 25px;
     height: fit-content;
     align-self: flex-start;
-    border-radius: 8px;
+    border-radius: 10px; /* 모서리를 더 둥글게 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* 그림자 효과 */
 }
 
 /* 메뉴 리스트 */
@@ -55,78 +62,77 @@ body {
 }
 
 .main-menu-item {
-    margin-bottom: 10px;
+    margin-bottom: 5px; /* 메뉴 간 간격 축소 */
 }
 
-/* 메인 메뉴 제목 (글씨 크기 키움) */
+/* 메인 메뉴 제목 */
 .main-menu-title {
     display: block;
-    padding: 10px 15px;
-    border-radius: 6px;
+    padding: 12px 18px; /* 여백 조정 */
+    border-radius: 8px;
     text-decoration: none;
-    color: #333;
-    font-size: 1.15rem; /* 글꼴 크기 확대 */
-    transition: background-color 0.2s;
-    font-weight: bold;
+    color: #343a40;
+    font-size: 1.05rem; /* 16px ~ 17px */
+    transition: background-color 0.2s ease-out, color 0.2s ease-out;
+    font-weight: 500; /* 폰트 두께를 Medium으로 조정 */
     cursor: pointer;
     position: relative;
-}
-
-.main-menu-title:hover {
-    background-color: #f0f0f0;
 }
 
 /* 서브메뉴 */
 .submenu {
     list-style: none;
     padding: 0;
-    margin: 5px 0 0 0;
+    margin: 5px 0;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease-in-out;
+    transition: max-height 0.35s ease-in-out;
 }
 
 /* 마우스를 올렸을 때 서브메뉴 펼치기 */
 .main-menu-item:hover .submenu {
-    max-height: 500px; /* 메뉴 개수에 따라 충분한 높이 설정 */
+    max-height: 500px;
 }
 
 .submenu li {
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
 .submenu a {
     display: block;
-    font-weight: normal;
-    padding: 8px 15px 8px 35px; /* 들여쓰기 효과 */
-    border-radius: 6px;
+    font-weight: 400; /* 일반 굵기 */
+    padding: 9px 18px 9px 38px; /* 들여쓰기 효과 강화 */
+    border-radius: 8px;
     text-decoration: none;
-    color: #333;
+    color: #495057; /* 서브메뉴 글자색을 약간 연하게 */
     font-size: 0.95rem;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s ease-out, color 0.2s ease-out;
 }
 
-.submenu a:hover {
-    background-color: #f0f0f0;
+/* 메뉴 호버 효과 */
+.main-menu-title:hover, .submenu a:hover {
+    background-color: #e9f5ea; /* 연한 초록색 배경 */
+    color: #1e4b20; /* 진한 초록색 글자 */
 }
+
 
 /* 게시글 콘텐츠 영역 */
 .board-content {
     flex-grow: 1;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .board-controls {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #e9ecef;
 }
 
 .search-box {
@@ -134,11 +140,18 @@ body {
 }
 
 .search-box input {
-    border: 1px solid #ccc;
+    border: 1px solid #ced4da;
+    border-right: none;
     border-radius: 6px 0 0 6px;
-    padding: 8px 12px;
+    padding: 9px 14px;
     font-size: 1rem;
     outline: none;
+    transition: border-color 0.2s;
+}
+
+.search-box input:focus {
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.15);
 }
 
 .search-box button {
@@ -146,8 +159,9 @@ body {
     color: #fff;
     border: none;
     border-radius: 0 6px 6px 0;
-    padding: 8px 12px;
+    padding: 9px 16px;
     cursor: pointer;
+    font-weight: 500;
     transition: background-color 0.2s;
 }
 

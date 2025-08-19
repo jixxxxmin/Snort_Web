@@ -35,7 +35,7 @@ body {
 .main-container {
     display: flex;
     /* 위쪽 패딩을 화면 높이(vh)에 비례하도록 변경 */
-    padding: 6vh 6vw; 
+    padding: 5vh 4vw; 
     gap: 30px; /* 사이드바와 콘텐츠 간의 간격을 조금 더 넓힘 */
 }
 
@@ -45,12 +45,13 @@ body {
     min-width: 220px;
     max-width: 280px;
     flex-shrink: 0;
-    padding: 15px;
+    /* 상하, 좌우 패딩을 비율 단위로 변경 */
+    padding: 3vh 1.5vw;
     background-color: #ffffff;
     border: 1px solid #dee2e6;
     position: sticky;
     /* main-container의 상단 패딩과 맞춥니다. */
-    top: 6vh; 
+    top: 5vh; 
     height: fit-content;
     align-self: flex-start;
     border-radius: 10px;
@@ -144,7 +145,8 @@ body {
 /* 게시글 콘텐츠 영역 */
 .board-content {
     flex-grow: 1;
-    padding: 25px;
+    /* 상하, 좌우 패딩을 비율 단위로 변경 */
+    padding: 4vh 2.5vw;
     background-color: #ffffff;
     border-radius: 10px;
     border: 1px solid #dee2e6;

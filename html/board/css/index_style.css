@@ -35,8 +35,8 @@ body {
 .main-container {
     display: flex;
     /* 위쪽 패딩을 화면 높이(vh)에 비례하도록 변경 */
-    padding: 4vh 4vw; 
-    gap: 25px;
+    padding: 6vh 6vw; 
+    gap: 30px; /* 사이드바와 콘텐츠 간의 간격을 조금 더 넓힘 */
 }
 
 /* 사이드바 */
@@ -50,7 +50,7 @@ body {
     border: 1px solid #dee2e6;
     position: sticky;
     /* main-container의 상단 패딩과 맞춥니다. */
-    top: 4vh; 
+    top: 6vh; 
     height: fit-content;
     align-self: flex-start;
     border-radius: 10px;

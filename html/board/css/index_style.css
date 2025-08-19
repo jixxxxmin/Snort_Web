@@ -118,16 +118,15 @@ body {
 .main-menu-item.pinned > .main-menu-title {
     background-color: #2e7d32;
     color: #ffffff;
+    font-weight: 600;
 }
 
 /* 선택된 서브메뉴 (메인 색상과 어울리는 연한 녹색) */
 .submenu a.submenu-active {
     background-color: #eaf4ea;
     color: #2e7d32;
-    font-weight: 500;
+    font-weight: 600;
 }
-
-
 
 /* 게시글 콘텐츠 영역 */
 .board-content {
@@ -206,8 +205,9 @@ body {
 .post-table thead th {
     font-weight: 500;
     color: #495057;
-    border-top: 1px solid #adb5bd;
-    border-bottom: 2px solid #adb5bd;
+    /* 위쪽 테두리를 제거하고 아래쪽만 1px로 통일 */
+    border-top: none; 
+    border-bottom: 1px solid #adb5bd;
     background-color: #f8f9fa;
     text-align: center;
 }

@@ -56,12 +56,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             window.fetchBoardPosts('submenu_id', subLink.dataset.submenuId);
                         });
                         
-                        const parentTitleDiv = mainLi.querySelector('.main-menu-title');
                         subLink.addEventListener('mouseover', () => {
-                            parentTitleDiv.classList.add('parent-hover');
+                            titleDiv.classList.add('parent-hover');
                         });
                         subLink.addEventListener('mouseout', () => {
-                            parentTitleDiv.classList.remove('parent-hover');
+                            titleDiv.classList.remove('parent-hover');
                         });
 
                         subLi.appendChild(subLink);

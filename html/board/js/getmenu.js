@@ -1,17 +1,11 @@
+
 document.addEventListener('DOMContentLoaded', function() {
     const mainMenu = document.getElementById('main-menu');
 
     fetch('getmenu')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            if (!data || data.error) {
-                throw new Error(data.error || '메뉴 데이터가 비어있습니다.');
-            }
+            if (!data) return;
 
             data.forEach(mainMenuItem => {
                 const mainLi = document.createElement('li');
@@ -23,6 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 titleDiv.textContent = mainMenuItem.이름;
                 
                 titleDiv.addEventListener('click', () => {
+                    document.querySelectorAll('.submenu a').forEach(link => link.classList.remove('submenu-active'));
+
                     const isPinned = mainLi.classList.contains('pinned');
                     document.querySelectorAll('.main-menu-item').forEach(item => item.classList.remove('pinned'));
                     if (!isPinned) {
@@ -47,6 +43,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         subLink.addEventListener('click', (e) => {
                             e.preventDefault();
+                            document.querySelectorAll('.main-menu-item').forEach(item => item.classList.remove('pinned'));
+                            document.querySelectorAll('.submenu a').forEach(link => link.classList.remove('submenu-active'));
+                            
+                            subLink.classList.add('submenu-active');
+                            
                             window.fetchBoardPosts('submenu_id', subLink.dataset.submenuId);
                         });
 
@@ -60,8 +61,5 @@ document.addEventListener('DOMContentLoaded', function() {
                 mainMenu.appendChild(mainLi);
             });
         })
-        .catch(error => {
-            console.error('Error fetching menu data:', error);
-            mainMenu.innerHTML = '<li>메뉴 로딩 실패</li>';
-        });
+        .catch(error => console.error('Error fetching menu data:', error));
 });

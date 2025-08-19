@@ -190,7 +190,6 @@ body {
 .post-table th, .post-table td {
     padding: 12px 10px;
     border-bottom: 1px solid #e9ecef;
-    /* --- 삭제: 세로줄 테두리 제거 --- */
 }
 
 .post-table thead th {
@@ -200,6 +199,11 @@ body {
     border-bottom-width: 2px;
     background-color: #f8f9fa;
     text-align: center;
+}
+
+/* --- 추가: 헤더 셀 사이에만 연한 세로줄 추가 --- */
+.post-table thead th:not(:last-child) {
+    border-right: 1px solid #dee2e6;
 }
 
 /* --- 수정된 부분: 테이블 내용 정렬 및 패딩 --- */
@@ -217,7 +221,7 @@ body {
 }
 
 .post-table td.col-title {
-    padding-left: 30px; /* --- 수정: 제목 내용 왼쪽에 여백 추가 --- */
+    padding-left: 35px; /* --- 수정: 제목 내용 왼쪽에 여백 추가 --- */
 }
 
 .post-table tbody tr:hover {

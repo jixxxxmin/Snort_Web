@@ -109,9 +109,14 @@ body {
     transition: background-color 0.2s ease-out, color 0.2s ease-out, font-weight 0.2s;
 }
 
-/* 마우스를 올렸을 때 (호버) */
-.main-menu-title:hover, .submenu a:hover {
-    background-color: #f1f3f5; /* 모든 호버는 중립적인 회색 */
+/* 메인 메뉴에 마우스를 올렸을 때 */
+.main-menu-title:hover {
+    background-color: #2e7d32; /* 예: 연한 회색 */
+}
+
+/* 서브메뉴에 마우스를 올렸을 때 */
+.submenu a:hover {
+    background-color: #d9f3d9; /* 예: 조금 더 진한 회색 */
 }
 
 /* 선택된 메인 메뉴 (사이트 메인 색상) */
@@ -123,7 +128,7 @@ body {
 
 /* 선택된 서브메뉴 (메인 색상과 어울리는 연한 녹색) */
 .submenu a.submenu-active {
-    background-color: #eaf4ea;
+    background-color: #d9f3d9;
     color: #2e7d32;
     font-weight: 600;
 }
@@ -206,7 +211,7 @@ body {
     font-weight: 500;
     color: #495057;
     /* 위쪽 테두리를 제거하고 아래쪽만 1px로 통일 */
-    border-top: none; 
+    border-top: 1px solid #adb5bd;
     border-bottom: 1px solid #adb5bd;
     background-color: #f8f9fa;
     text-align: center;

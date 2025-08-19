@@ -190,6 +190,13 @@ body {
 .post-table th, .post-table td {
     padding: 12px 10px;
     border-bottom: 1px solid #e9ecef;
+    border-right: 1px solid #e9ecef; /* --- 추가: 모든 셀에 오른쪽 테두리 --- */
+}
+
+/* --- 추가: 마지막 셀에는 오른쪽 테두리 제거 --- */
+.post-table th:last-child,
+.post-table td:last-child {
+    border-right: none;
 }
 
 .post-table thead th {
@@ -216,7 +223,7 @@ body {
 }
 
 .post-table td.col-title {
-    padding-left: 20px; /* 제목 내용 왼쪽에 여백 추가 */
+    padding-left: 25px; /* --- 수정: 제목 내용 왼쪽에 여백 추가 --- */
 }
 
 .post-table tbody tr:hover {

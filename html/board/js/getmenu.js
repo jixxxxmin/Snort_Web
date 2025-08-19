@@ -24,10 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 subMenuUl.className = 'submenu';
 
                 if (mainMenuItem.메뉴 && mainMenuItem.메뉴.length > 0) {
-                    // 서브메뉴 배열을 '이름' 프로퍼티 기준으로 오름차순 정렬합니다.
                     mainMenuItem.메뉴.sort((a, b) => a.이름.localeCompare(b.이름));
                     
-                    // 정렬된 배열을 사용하여 서브메뉴 항목을 생성합니다.
                     mainMenuItem.메뉴.forEach(subMenuItem => {
                         const subLi = document.createElement('li');
                         const subLink = document.createElement('a');
@@ -43,6 +41,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 mainLi.appendChild(titleDiv);
                 mainLi.appendChild(subMenuUl);
                 mainMenu.appendChild(mainLi);
+
+                titleDiv.addEventListener('click', () => {
+                    const isPinned = mainLi.classList.contains('pinned');
+
+                    document.querySelectorAll('.main-menu-item').forEach(item => {
+                        item.classList.remove('pinned');
+                    });
+
+                    if (!isPinned) {
+                        mainLi.classList.add('pinned');
+                    }
+                });
             });
         })
         .catch(error => {

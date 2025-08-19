@@ -3,12 +3,12 @@
 
 /* 공통 스타일 */
 body {
-    font-family: 'Noto Sans KR', Arial, sans-serif; /* 기본 폰트를 Noto Sans KR로 변경 */
-    background-color: #f8f9fa; /* 배경색을 약간 더 부드럽게 변경 */
-    color: #212529; /* 기본 글자색을 좀 더 진하게 */
+    font-family: 'Noto Sans KR', Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
     margin: 0;
     padding: 0;
-    -webkit-font-smoothing: antialiased; /* 폰트를 부드럽게 렌더링 */
+    -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
@@ -16,11 +16,11 @@ body {
 .board-header {
     background-color: #ffffff;
     padding: 20px 4vw;
-    border-bottom: 1px solid #dee2e6; /* 테두리 색을 연하게 */
+    border-bottom: 1px solid #dee2e6;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03); /* 부드러운 그림자 추가 */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
 .board-title {
@@ -34,7 +34,7 @@ body {
 .main-container {
     display: flex;
     padding: 25px 4vw;
-    gap: 25px; /* 컴포넌트 간 간격 조정 */
+    gap: 25px;
 }
 
 /* 사이드바 */
@@ -43,15 +43,15 @@ body {
     min-width: 220px;
     max-width: 280px;
     flex-shrink: 0;
-    padding: 15px; /* 내부 여백 조정 */
+    padding: 15px;
     background-color: #ffffff;
-    border: 1px solid #dee2e6; /* 테두리 추가 */
+    border: 1px solid #dee2e6;
     position: sticky;
     top: 25px;
     height: fit-content;
     align-self: flex-start;
-    border-radius: 10px; /* 모서리를 더 둥글게 */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* 그림자 효과 */
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 /* 메뉴 리스트 */
@@ -62,19 +62,19 @@ body {
 }
 
 .main-menu-item {
-    margin-bottom: 5px; /* 메뉴 간 간격 축소 */
+    margin-bottom: 5px;
 }
 
 /* 메인 메뉴 제목 */
 .main-menu-title {
     display: block;
-    padding: 12px 18px; /* 여백 조정 */
+    padding: 12px 18px;
     border-radius: 8px;
     text-decoration: none;
     color: #343a40;
-    font-size: 1.05rem; /* 16px ~ 17px */
+    font-size: 1.05rem;
     transition: background-color 0.2s ease-out, color 0.2s ease-out;
-    font-weight: 500; /* 폰트 두께를 Medium으로 조정 */
+    font-weight: 500;
     cursor: pointer;
     position: relative;
 }
@@ -89,8 +89,10 @@ body {
     transition: max-height 0.35s ease-in-out;
 }
 
-/* 마우스를 올렸을 때 서브메뉴 펼치기 */
-.main-menu-item:hover .submenu {
+/* --- 수정된 부분 --- */
+/* 마우스를 올리거나, 'pinned' 클래스가 있을 때 서브메뉴 펼치기 */
+.main-menu-item:hover .submenu,
+.main-menu-item.pinned .submenu {
     max-height: 500px;
 }
 
@@ -100,19 +102,22 @@ body {
 
 .submenu a {
     display: block;
-    font-weight: 400; /* 일반 굵기 */
-    padding: 9px 18px 9px 38px; /* 들여쓰기 효과 강화 */
+    font-weight: 400;
+    padding: 9px 18px 9px 38px;
     border-radius: 8px;
     text-decoration: none;
-    color: #495057; /* 서브메뉴 글자색을 약간 연하게 */
+    color: #495057;
     font-size: 0.95rem;
     transition: background-color 0.2s ease-out, color 0.2s ease-out;
 }
 
-/* 메뉴 호버 효과 */
-.main-menu-title:hover, .submenu a:hover {
-    background-color: #e9f5ea; /* 연한 초록색 배경 */
-    color: #1e4b20; /* 진한 초록색 글자 */
+/* --- 수정된 부분 --- */
+/* 호버 효과 및 고정 상태 스타일 */
+.main-menu-title:hover,
+.submenu a:hover,
+.main-menu-item.pinned > .main-menu-title {
+    background-color: #e9f5ea;
+    color: #1e4b20;
 }
 
 

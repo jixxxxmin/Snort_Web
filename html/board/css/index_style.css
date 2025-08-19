@@ -1,4 +1,4 @@
-/* 공통 스타일: 로그인/관리자 페이지의 배경 및 폰트 통일 */
+/* 공통 스타일 */
 body {
     font-family: Arial, sans-serif;
     background-color: #f5f6f8;
@@ -32,10 +32,10 @@ body {
     min-height: calc(100vh - 100px);
 }
 
-/* 사이드바 */
+/* 사이드바 (화면 너비의 25%를 차지하도록 수정) */
 .sidebar {
-    width: 25%;
-    max-width: 280px; /* 사이드바 최대 너비 설정 */
+    width: 25%; /* 화면 비율에 따라 너비 조절 */
+    min-width: 200px; /* 너무 좁아지지 않도록 최소 너비 설정 */
     flex-shrink: 0;
     padding: 20px;
     background-color: #fff;
@@ -58,14 +58,14 @@ body {
     margin-bottom: 10px;
 }
 
-/* 메인 메뉴 제목 (클릭 영역) */
+/* 메인 메뉴 제목 (글씨 크기 키움) */
 .main-menu-title {
     display: block;
     padding: 10px 15px;
     border-radius: 6px;
     text-decoration: none;
     color: #333;
-    font-size: 1rem;
+    font-size: 1.15rem; /* 글꼴 크기 확대 */
     transition: background-color 0.2s;
     font-weight: bold;
     cursor: pointer;
@@ -74,22 +74,6 @@ body {
 
 .main-menu-title:hover {
     background-color: #f0f0f0;
-}
-
-/* 화살표 아이콘 */
-.main-menu-title::after {
-    content: '▶';
-    font-size: 10px;
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%) rotate(0deg);
-    transition: transform 0.3s ease;
-}
-
-/* 활성화된 메뉴의 화살표 아이콘 회전 */
-.main-menu-item.active > .main-menu-title::after {
-    transform: translateY(-50%) rotate(90deg);
 }
 
 /* 서브메뉴 */
@@ -102,8 +86,8 @@ body {
     transition: max-height 0.4s ease-in-out;
 }
 
-/* 활성화 시 서브메뉴 펼치기 */
-.main-menu-item.active .submenu {
+/* 마우스를 올렸을 때 서브메뉴 펼치기 */
+.main-menu-item:hover .submenu {
     max-height: 500px; /* 메뉴 개수에 따라 충분한 높이 설정 */
 }
 
@@ -128,7 +112,7 @@ body {
 
 /* 게시글 콘텐츠 영역 */
 .board-content {
-    flex-grow: 1; /* 남은 공간을 모두 차지하도록 수정 */
+    flex-grow: 1;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;

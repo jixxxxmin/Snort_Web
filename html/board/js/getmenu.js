@@ -1,26 +1,13 @@
 
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('getmenu')
-        .then(response => response.json())
-        .then(data => {
-            if (!data) return;
-            renderMenu(data);
-            
-            localStorage.setItem('cachedMenu', JSON.stringify(data));
-        })
-        .catch(error => console.error('메뉴 데이터를 가져오는 중 오류 발생:', error));
-});
-
-function fetchAndRenderMenu() {
     fetch('/board/getmenu')
         .then(response => response.json())
         .then(data => {
             if (!data) return;
-            localStorage.setItem('cachedMenu', JSON.stringify(data));
             renderMenu(data);
         })
         .catch(error => console.error('메뉴 데이터를 가져오는 중 오류 발생:', error));
-}
+});
 
 function renderMenu(data) {
     const mainMenu = document.getElementById('main-menu');

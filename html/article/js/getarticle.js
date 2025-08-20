@@ -3,9 +3,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const articleId = urlParams.get('article_id');
     const menuId = urlParams.get('menu_id');
+    const submenuId = urlParams.get('submenu_id');
 
-    if (articleId && menuId) {
-        fetch(`/articles?article_id=${articleId}&menu_id=${menuId}`)
+    const parentIdType = menuId ? 'menu_id' : 'submenu_id';
+    const parentId = menuId || submenuId;
+
+    if (articleId && parentId) {
+        fetch(`/articles?article_id=${articleId}&${parentIdType}=${parentId}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('네트워크 응답 오류');
@@ -20,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const prevPostLink = document.querySelector('#prev-post a');
                 if (data.prevPost) {
                     prevPostLink.textContent = data.prevPost.title;
-                    prevPostLink.href = `/articles?article_id=${data.prevPost.id}&menu_id=${menuId}`;
+                    prevPostLink.href = `/articles?article_id=${data.prevPost.id}&${parentIdType}=${parentId}`;
                 } else {
                     document.getElementById('prev-post').classList.add('hidden');
                 }
@@ -28,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const nextPostLink = document.querySelector('#next-post a');
                 if (data.nextPost) {
                     nextPostLink.textContent = data.nextPost.title;
-                    nextPostLink.href = `/articles?article_id=${data.nextPost.id}&menu_id=${menuId}`;
+                    nextPostLink.href = `/articles?article_id=${data.nextPost.id}&${parentIdType}=${parentId}`;
                 } else {
                     document.getElementById('next-post').classList.add('hidden');
                 }

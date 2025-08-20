@@ -28,7 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 allPosts = data;
                 currentPage = 1;
-                renderPage(currentPage, id);
+                
+                renderPage(currentPage, id, idType);
                 setupPagination();
             })
             .catch(error => {
@@ -37,8 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 paginationControls.innerHTML = '';
             });
 
-        function renderPage(page, menuId) {
-            postListBody.innerHTML = '';
+        function renderPage(page, parentId, idType) {
             if (allPosts.length === 0) {
                 postListBody.innerHTML = `<tr><td colspan="3" class="no-posts">게시글이 없습니다.</td></tr>`;
                 return;
@@ -55,7 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 titleCell.className = 'col-title';
 
                 const titleLink = document.createElement('a');
-                titleLink.href = `/articles?article_id=${post.id}&menu_id=${menuId}`;
+                
+                titleLink.href = `/articles?article_id=${post.id}&${idType}=${parentId}`;
                 titleLink.textContent = post.article;
                 
                 titleCell.appendChild(titleLink);
@@ -83,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 btn.addEventListener('click', () => {
                     currentPage = i;
-                    renderPage(i);
+                    renderPage(i, id, idType);
                     document.querySelectorAll('.pagination button').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                 });

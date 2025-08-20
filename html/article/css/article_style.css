@@ -1,230 +1,135 @@
-/* Google Fonts에서 Noto Sans KR 폰트 가져오기 */
+/* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
 
-/* 공통 스타일 */
+/* 기본 스타일 */
 body {
     font-family: 'Noto Sans KR', Arial, sans-serif;
-    background-color: #f8f9fa;
-    color: #212529;
     margin: 0;
     padding: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    background-color: #f8f9fa;
+    color: #212529;
 }
 
-/* 헤더 - 게시판 페이지와 동일 */
+/* 헤더 */
 .board-header {
     background-color: #ffffff;
-    padding: 4vh 5vw;
+    padding: 20px 5vw;
     border-bottom: 1px solid #dee2e6;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .board-title {
     margin: 0;
-    font-size: clamp(1.5rem, 2.5vw, 1.8rem);
+    font-size: 1.8rem;
     font-weight: 700;
     color: #2e7d32;
 }
 
-/* 메인 컨테이너 레이아웃 - 게시판 페이지와 동일 */
+/* 메인 레이아웃 */
 .main-layout {
     display: flex;
-    padding: 4vh 4vw;
     gap: 2vw;
+    padding: 30px 5vw;
 }
 
-/* 사이드바 컨테이너 - 게시판 페이지와 동일 */
+/* 사이드바 */
 .sidebar-container {
-    width: 25%;
-    min-width: 220px;
-    max-width: 280px;
+    width: 250px;
     flex-shrink: 0;
 }
 
-/* 사이드바 - 게시판 페이지와 동일 */
 .sidebar {
-    padding: 3vh 1.5vw;
     background-color: #ffffff;
     border: 1px solid #dee2e6;
-    position: sticky;
-    top: 5vh;
-    height: fit-content;
-    align-self: flex-start;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    position: sticky;
+    top: 20px; /* 스크롤 따라 내려옴 */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-/* 메뉴 리스트, 메뉴 아이템, 서브메뉴 등 - 게시판 페이지와 동일 */
 .menu-list {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.main-menu-item {
-    margin-bottom: 5px;
-}
-
-.main-menu-title {
-    display: block;
-    padding: 12px 18px;
-    border-radius: 8px;
-    text-decoration: none;
-    color: #343a40;
-    font-size: 1.05rem;
-    transition: background-color 0.2s ease-out, color 0.2s ease-out;
-    font-weight: 500;
-    cursor: pointer;
-    position: relative;
-}
-
-.submenu {
-    list-style: none;
-    padding: 0;
-    margin: 5px 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease-in-out;
-}
-
-.main-menu-item:hover .submenu,
-.main-menu-item.pinned .submenu {
-    max-height: 500px;
-}
-
-.submenu li {
-    margin-bottom: 2px;
-}
-
-.submenu a {
-    display: block;
-    font-weight: 400;
-    padding: 9px 18px 9px 38px;
-    border-radius: 8px;
-    text-decoration: none;
-    color: #495057;
-    font-size: 0.95rem;
-    transition: background-color 0.2s ease-out, color 0.2s ease-out, font-weight 0.2s;
-}
-
-/* 메뉴 hover 및 active 상태 - 게시판 페이지와 동일 */
-.main-menu-title:hover,
-.main-menu-title.parent-hover {
-    background-color: #2e7d32;
-    color: #ffffff;
-    font-weight: 600;
-}
-
-.submenu a:hover {
-    background-color: #eaf4ea;
-    color: #2e7d32;
-    font-weight: 600;
-}
-
-.main-menu-item.pinned > .main-menu-title {
-    background-color: #2e7d32;
-    color: #ffffff;
-    font-weight: 600;
-}
-
-.submenu a.submenu-active {
-    background-color: #d9f3d9;
-    color: #2e7d32;
-    font-weight: 600;
-}
-
-/* 게시글 콘텐츠 영역 - 게시판 페이지와 동일 */
+/* 콘텐츠 컨테이너 */
 .content-container {
     flex-grow: 1;
 }
 
+/* 게시글 영역 */
 .board-content {
-    padding: 4vh 2.5vw;
-    background-color: #ffffff;
-    border-radius: 10px;
-    border: 1px solid #dee2e6;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
-/* 게시글 보기 페이지 스타일 */
-.article-container {
-    padding-bottom: 2rem;
-    border-bottom: 1px solid #e9ecef;
+/* === 블럭 공통 스타일 === */
+.article-container,
+.article-nav-container {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 20px 25px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-/* 게시글 헤더 */
+/* 게시글 제목 & 정보 (블럭 1) */
 .article-header {
     border-bottom: 1px solid #e9ecef;
-    padding-bottom: 1.5rem;
-    margin-bottom: 1.5rem;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .article-title {
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
-    font-weight: 700;
-    color: #212529;
+    font-size: 1.5rem;
+    font-weight: 600;
     margin: 0;
-    line-height: 1.4;
+    color: #212529;
 }
 
 .article-info {
-    font-size: 0.95rem;
-    color: #6c757d;
-    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #868e96;
+    margin-top: 6px;
 }
 
-.article-timestamp {
-    font-weight: 400;
-}
-
-/* 게시글 본문 */
+/* 본문 내용 (블럭 2) */
 .article-body {
-    font-size: 1.1rem;
-    line-height: 1.8;
+    line-height: 1.6;
+    font-size: 1rem;
     color: #343a40;
-    word-break: break-all;
 }
 
-/* 이전/다음 글 링크 */
+/* 이전글/다음글 (블럭 3, 4) */
 .article-nav-container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid #e9ecef;
+    gap: 12px;
 }
 
 .nav-link {
     display: flex;
-    align-items: center;
-    font-size: 1rem;
-    color: #6c757d;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: #495057;
 }
 
 .nav-link span {
     font-weight: 500;
-    margin-right: 10px;
-    color: #495057;
+    color: #868e96;
+    min-width: 60px;
 }
 
 .nav-link a {
-    color: #343a40;
     text-decoration: none;
-    transition: color 0.2s, text-decoration 0.2s;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 80%;
+    color: #2e7d32;
+    transition: color 0.2s;
 }
 
 .nav-link a:hover {
-    color: #2e7d32;
+    color: #1b5e20;
     text-decoration: underline;
 }

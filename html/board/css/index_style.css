@@ -12,10 +12,10 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* 헤더 - 게시판 페이지와 동일 */
+/* 헤더 */
 .board-header {
     background-color: #ffffff;
-    padding: 4vh 5vw;
+    padding: 4vh 5vw; /* 상하 패딩을 화면 높이(vh)에 비례 */
     border-bottom: 1px solid #dee2e6;
     display: flex;
     justify-content: space-between;
@@ -30,23 +30,19 @@ body {
     color: #2e7d32;
 }
 
-/* 메인 컨테이너 레이아웃 - 게시판 페이지와 동일 */
-.main-layout {
+/* 메인 컨테이너 레이아웃 */
+.main-container {
     display: flex;
     padding: 4vh 4vw;
-    gap: 2vw;
+    gap: 2vw; /* 사이드바와 콘텐츠 간격 */
 }
 
-/* 사이드바 컨테이너 - 게시판 페이지와 동일 */
-.sidebar-container {
+/* 사이드바 */
+.sidebar {
     width: 25%;
     min-width: 220px;
     max-width: 280px;
     flex-shrink: 0;
-}
-
-/* 사이드바 - 게시판 페이지와 동일 */
-.sidebar {
     padding: 3vh 1.5vw;
     background-color: #ffffff;
     border: 1px solid #dee2e6;
@@ -58,7 +54,7 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* 메뉴 리스트, 메뉴 아이템, 서브메뉴 등 - 게시판 페이지와 동일 */
+/* 메뉴 리스트 */
 .menu-list {
     list-style: none;
     padding: 0;
@@ -69,6 +65,7 @@ body {
     margin-bottom: 5px;
 }
 
+/* 메인 메뉴 제목 */
 .main-menu-title {
     display: block;
     padding: 12px 18px;
@@ -82,6 +79,7 @@ body {
     position: relative;
 }
 
+/* 서브메뉴 */
 .submenu {
     list-style: none;
     padding: 0;
@@ -111,7 +109,7 @@ body {
     transition: background-color 0.2s ease-out, color 0.2s ease-out, font-weight 0.2s;
 }
 
-/* 메뉴 hover 및 active 상태 - 게시판 페이지와 동일 */
+/* 메뉴 hover 효과 */
 .main-menu-title:hover,
 .main-menu-title.parent-hover {
     background-color: #2e7d32;
@@ -137,12 +135,9 @@ body {
     font-weight: 600;
 }
 
-/* 게시글 콘텐츠 영역 - 게시판 페이지와 동일 */
-.content-container {
-    flex-grow: 1;
-}
-
+/* 게시글 콘텐츠 영역 */
 .board-content {
+    flex-grow: 1;
     padding: 4vh 2.5vw;
     background-color: #ffffff;
     border-radius: 10px;
@@ -152,79 +147,180 @@ body {
     flex-direction: column;
 }
 
-/* 게시글 보기 페이지 스타일 */
-.article-container {
-    padding-bottom: 2rem;
-    border-bottom: 1px solid #e9ecef;
-}
-
-/* 게시글 헤더 */
-.article-header {
-    border-bottom: 1px solid #e9ecef;
-    padding-bottom: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.article-title {
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
-    font-weight: 700;
-    color: #212529;
-    margin: 0;
-    line-height: 1.4;
-}
-
-.article-info {
-    font-size: 0.95rem;
-    color: #6c757d;
-    margin-top: 10px;
-}
-
-.article-timestamp {
-    font-weight: 400;
-}
-
-/* 게시글 본문 */
-.article-body {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #343a40;
-    word-break: break-all;
-}
-
-/* 이전/다음 글 링크 */
-.article-nav-container {
+/* 검색창 */
+.board-controls {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid #e9ecef;
-}
-
-.nav-link {
-    display: flex;
+    justify-content: center;
     align-items: center;
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 1px solid #e9ecef;
+    order: 3;
+}
+
+.search-box {
+    display: flex;
+    width: 60%;
+    max-width: 500px;
+}
+
+.search-box input {
+    flex-grow: 1;
+    border: 1px solid #ced4da;
+    border-right: none;
+    border-radius: 6px 0 0 6px;
+    padding: 9px 14px;
     font-size: 1rem;
-    color: #6c757d;
+    outline: none;
+    transition: border-color 0.2s;
 }
 
-.nav-link span {
+.search-box input:focus {
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.15);
+}
+
+.search-box button {
+    background-color: #2e7d32;
+    color: #fff;
+    border: none;
+    border-radius: 0 6px 6px 0;
+    padding: 9px 16px;
+    cursor: pointer;
     font-weight: 500;
-    margin-right: 10px;
-    color: #495057;
+    transition: background-color 0.2s;
 }
 
-.nav-link a {
+.search-box button:hover {
+    background-color: #1b5e20;
+}
+
+/* 게시판 테이블 */
+.post-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 2px;
+    font-size: 0.95rem;
+    order: 1;
+}
+
+.post-table th,
+.post-table td {
+    padding: 12px 10px;
+    background-color: #ffffff;
+}
+
+.post-table thead th {
+    font-weight: 500;
+    color: #495057;
+    border-top: 1px solid #adb5bd;
+    border-bottom: 1px solid #adb5bd;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.post-table thead th:not(:last-child) {
+    border-right: 2px solid #ffffff;
+}
+
+.col-num { width: 10%; }
+.col-title { width: 70%; }
+.col-date { width: 20%; }
+
+.post-table td {
+    color: #343a40;
+    border-bottom: 1px solid #f1f3f5;
+}
+
+.post-table td.col-num,
+.post-table td.col-date {
+    text-align: center;
+}
+
+.post-table td.col-title {
+    padding-left: 40px;
+}
+
+.post-table tbody tr:hover td {
+    background-color: #f1f3f5;
+}
+
+.post-table .no-posts {
+    text-align: center;
+    padding: 50px 0;
+    color: #868e96;
+}
+
+/* 게시글 제목 링크 */
+.post-table td.col-title a {
     color: #343a40;
     text-decoration: none;
-    transition: color 0.2s, text-decoration 0.2s;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 80%;
+    transition: color 0.2s ease-out;
 }
 
-.nav-link a:hover {
+.post-table td.col-title a:hover {
     color: #2e7d32;
     text-decoration: underline;
+}
+
+/* 페이지네이션 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    gap: 5px;
+    order: 2;
+}
+
+.pagination button {
+    border: 1px solid #ced4da;
+    background-color: #fff;
+    color: #495057;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.pagination button:hover {
+    background-color: #e9ecef;
+}
+
+.pagination button.active {
+    background-color: #2e7d32;
+    color: #fff;
+    border-color: #2e7d32;
+    font-weight: 500;
+}
+
+.pagination button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* 플레이스홀더 및 숨김 스타일 */
+.placeholder-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+    color: #adb5bd;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.placeholder-content h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none !important;
 }

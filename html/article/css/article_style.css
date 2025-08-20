@@ -47,17 +47,11 @@ body {
 
 /* 사이드바 - 게시판 페이지와 동일 */
 .sidebar {
-    width: 25%;
-    min-width: 220px;
-    max-width: 280px;
-    flex-shrink: 0;
-    /* 상하, 좌우 패딩을 비율 단위로 변경 */
     padding: 3vh 1.5vw;
     background-color: #ffffff;
     border: 1px solid #dee2e6;
     position: sticky;
-    /* main-container의 상단 패딩과 맞춥니다. */
-    top: 5vh; 
+    top: 5vh;
     height: fit-content;
     align-self: flex-start;
     border-radius: 10px;
@@ -149,7 +143,6 @@ body {
 }
 
 .board-content {
-    /* 상하, 좌우 패딩을 비율 단위로 변경 */
     padding: 4vh 2.5vw;
     background-color: #ffffff;
     border-radius: 10px;
@@ -160,7 +153,6 @@ body {
 }
 
 /* 게시글 보기 페이지 스타일 */
-
 .article-container {
     padding-bottom: 2rem;
     border-bottom: 1px solid #e9ecef;
@@ -197,39 +189,6 @@ body {
     line-height: 1.8;
     color: #343a40;
     word-break: break-all;
-}
-
-/* 이미지, 링크, 코드블럭 등 추가 스타일링 */
-.article-body p {
-    margin: 0 0 1rem 0;
-}
-
-.article-body img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    display: block;
-    margin: 2rem auto;
-}
-
-.article-body a {
-    color: #2e7d32;
-    text-decoration: none;
-    transition: text-decoration 0.2s ease-out;
-}
-
-.article-body a:hover {
-    text-decoration: underline;
-}
-
-.article-body pre {
-    background-color: #f1f3f5;
-    padding: 1.5rem;
-    border-radius: 8px;
-    overflow-x: auto;
-    font-family: 'Consolas', 'Menlo', 'Monaco', 'Courier New', monospace;
-    font-size: 0.9rem;
-    line-height: 1.5;
 }
 
 /* 이전/다음 글 링크 */

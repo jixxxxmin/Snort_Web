@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const prevPostLink = document.querySelector('#prev-post a');
                 if (data.prevPost) {
                     prevPostLink.textContent = data.prevPost.title;
-                    prevPostLink.href = `/articles?article_id=${data.prevPost.id}&${parentIdType}=${parentId}`;
+                    prevPostLink.href = `/article?article_id=${data.prevPost.id}&${parentIdType}=${parentId}`;
                 } else {
                     document.getElementById('prev-post').classList.add('hidden');
                 }
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const nextPostLink = document.querySelector('#next-post a');
                 if (data.nextPost) {
                     nextPostLink.textContent = data.nextPost.title;
-                    nextPostLink.href = `/articles?article_id=${data.nextPost.id}&${parentIdType}=${parentId}`;
+                    nextPostLink.href = `/article?article_id=${data.nextPost.id}&${parentIdType}=${parentId}`;
                 } else {
                     document.getElementById('next-post').classList.add('hidden');
                 }

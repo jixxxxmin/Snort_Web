@@ -15,16 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('캐시가 없어 서버에서 새로 가져옵니다.');
         fetchAndRenderMenu();
     }
-    
-    const urlParams = new URLSearchParams(window.location.search);
-    const menuId = urlParams.get('menu_id');
-    const submenuId = urlParams.get('submenu_id');
-    
-    if (menuId) {
-        window.fetchBoardPosts('menu_id', menuId);
-    } else if (submenuId) {
-        window.fetchBoardPosts('submenu_id', submenuId);
-    }
 });
 
 function fetchAndRenderMenu() {
@@ -32,6 +22,7 @@ function fetchAndRenderMenu() {
         .then(response => response.json())
         .then(data => {
             if (!data) return;
+
             localStorage.setItem('cachedMenu', JSON.stringify(data));
             renderMenu(data);
         })
@@ -56,8 +47,7 @@ function renderMenu(data) {
         titleDiv.textContent = mainMenuItem.이름;
         
         titleDiv.addEventListener('click', () => {
-            window.history.pushState(null, '', `?menu_id=${mainMenuItem.id}`);
-            window.fetchBoardPosts('menu_id', mainMenuItem.id);
+            window.location.href = `/board/?menu_id=${mainMenuItem.id}`;
         });
 
         const subMenuUl = document.createElement('ul');
@@ -76,8 +66,7 @@ function renderMenu(data) {
                 
                 subLink.addEventListener('click', (e) => {
                     e.preventDefault();
-                    window.history.pushState(null, '', `?submenu_id=${subMenuItem.id}`);
-                    window.fetchBoardPosts('submenu_id', subMenuItem.id);
+                    window.location.href = `/board/?submenu_id=${subMenuItem.id}`;
                 });
                 
                 subLink.addEventListener('mouseover', () => {

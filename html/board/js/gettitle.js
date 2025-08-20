@@ -9,13 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const postListBody = document.getElementById('post-list-body');
     const paginationControls = document.getElementById('pagination-controls');
 
-    // URL에 ID가 있으면 바로 게시글을 불러옵니다.
-    if (menuId) {
-        window.fetchBoardPosts('menu_id', menuId, true);
-    } else if (submenuId) {
-        window.fetchBoardPosts('submenu_id', submenuId, true);
-    }
-
     window.fetchBoardPosts = (idType, id, shouldReplaceUrl = false) => {
         postListBody.innerHTML = '';
         paginationControls.innerHTML = '';
@@ -72,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 titleCell.className = 'col-title';
 
                 const titleLink = document.createElement('a');
-                titleLink.href = `/article?article_id=${post.num}&${idType}=${parentId}`;
+                titleLink.href = `/articles?article_id=${post.num}&${idType}=${parentId}`;
                 titleLink.textContent = post.article;
                 
                 titleCell.appendChild(titleLink);
@@ -108,4 +101,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     };
+    
+    if (menuId) {
+        window.fetchBoardPosts('menu_id', menuId, true);
+    } else if (submenuId) {
+        window.fetchBoardPosts('submenu_id', submenuId, true);
+    }
 });

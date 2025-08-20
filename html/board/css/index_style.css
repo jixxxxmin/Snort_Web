@@ -35,7 +35,7 @@ body {
 .main-container {
     display: flex;
     /* 위쪽 패딩을 화면 높이(vh)에 비례하도록 변경 */
-    padding: 5vh 4vw; 
+    padding: 4vh 4vw; 
     gap: 2vw; /* 사이드바와 콘텐츠 간의 간격을 조금 더 넓힘 */
 }
 

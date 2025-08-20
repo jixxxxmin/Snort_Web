@@ -12,7 +12,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* 헤더 */
+/* 헤더 - 게시판 페이지와 동일 */
 .board-header {
     background-color: #ffffff;
     padding: 4vh 5vw;
@@ -30,15 +30,14 @@ body {
     color: #2e7d32;
 }
 
-/* 메인 컨테이너 레이아웃 (게시판 페이지와 통일) */
+/* 메인 컨테이너 레이아웃 - 게시판 페이지와 동일 */
 .main-layout {
     display: flex;
     padding: 4vh 4vw;
     gap: 2vw;
-    box-sizing: border-box; /* 패딩이 전체 너비에 포함되도록 설정 */
 }
 
-/* 사이드바 컨테이너 */
+/* 사이드바 컨테이너 - 게시판 페이지와 동일 */
 .sidebar-container {
     width: 25%;
     min-width: 220px;
@@ -46,12 +45,14 @@ body {
     flex-shrink: 0;
 }
 
-/* 사이드바 */
+/* 사이드바 - 게시판 페이지와 동일 */
 .sidebar {
+    /* 상하, 좌우 패딩을 비율 단위로 변경 */
     padding: 3vh 1.5vw;
     background-color: #ffffff;
     border: 1px solid #dee2e6;
     position: sticky;
+    /* main-layout의 상단 패딩과 맞춥니다. */
     top: 5vh;
     height: fit-content;
     align-self: flex-start;
@@ -59,7 +60,7 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* 메뉴 리스트 (게시판 페이지와 동일) */
+/* 메뉴 리스트, 메뉴 아이템, 서브메뉴 등 - 게시판 페이지와 동일 */
 .menu-list {
     list-style: none;
     padding: 0;
@@ -112,6 +113,7 @@ body {
     transition: background-color 0.2s ease-out, color 0.2s ease-out, font-weight 0.2s;
 }
 
+/* 메뉴 hover 및 active 상태 - 게시판 페이지와 동일 */
 .main-menu-title:hover,
 .main-menu-title.parent-hover {
     background-color: #2e7d32;
@@ -137,16 +139,13 @@ body {
     font-weight: 600;
 }
 
-/* 콘텐츠 영역 */
+/* 게시글 콘텐츠 영역 - 게시판 페이지와 동일 */
 .content-container {
     flex-grow: 1;
-    display: flex;
-    flex-direction: column;
 }
 
-/* 게시글 콘텐츠 영역 (게시판 페이지와 통일) */
 .board-content {
-    flex-grow: 1;
+    /* 상하, 좌우 패딩을 비율 단위로 변경 */
     padding: 4vh 2.5vw;
     background-color: #ffffff;
     border-radius: 10px;
@@ -154,76 +153,115 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    height: fit-content; /* 내부 콘텐츠에 맞게 높이 조절 */
 }
 
-/* 게시글 제목, 정보, 본문 스타일 */
+/* 게시글 보기 페이지 스타일 */
+
 .article-container {
-    padding-bottom: 20px;
+    padding-bottom: 2rem;
     border-bottom: 1px solid #e9ecef;
 }
 
+/* 게시글 헤더 */
 .article-header {
-    margin-bottom: 20px;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .article-title {
     font-size: clamp(1.5rem, 3vw, 2.2rem);
     font-weight: 700;
-    color: #343a40;
-    margin: 0 0 10px 0;
-    word-break: break-word; /* 긴 제목이 넘치지 않도록 처리 */
+    color: #212529;
+    margin: 0;
+    line-height: 1.4;
 }
 
 .article-info {
-    font-size: 0.9rem;
-    color: #868e96;
-    display: flex;
-    justify-content: flex-end; /* 오른쪽으로 배치 */
+    font-size: 0.95rem;
+    color: #6c757d;
+    margin-top: 10px;
 }
 
 .article-timestamp {
-    margin-left: 10px;
+    font-weight: 400;
 }
 
+/* 게시글 본문 */
 .article-body {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #495057;
-    word-break: break-word; /* 긴 내용이 넘치지 않도록 처리 */
+    color: #343a40;
+    word-break: break-all;
 }
 
-/* 이전/다음 글 링크 영역 */
+/* 이미지, 링크, 코드블럭 등 추가 스타일링 */
+.article-body p {
+    margin: 0 0 1rem 0;
+}
+
+.article-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    margin: 2rem auto;
+}
+
+.article-body a {
+    color: #2e7d32;
+    text-decoration: none;
+    transition: text-decoration 0.2s ease-out;
+}
+
+.article-body a:hover {
+    text-decoration: underline;
+}
+
+.article-body pre {
+    background-color: #f1f3f5;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Menlo', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* 이전/다음 글 링크 */
 .article-nav-container {
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e9ecef;
 }
 
 .nav-link {
-    font-size: 0.95rem;
-    color: #868e96;
-    transition: color 0.2s ease-out;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+.nav-link span {
+    font-weight: 500;
+    margin-right: 10px;
+    color: #495057;
 }
 
 .nav-link a {
-    color: #495057;
+    color: #343a40;
     text-decoration: none;
-    transition: color 0.2s ease-out, text-decoration 0.2s ease-out;
+    transition: color 0.2s, text-decoration 0.2s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 80%;
 }
 
 .nav-link a:hover {
     color: #2e7d32;
     text-decoration: underline;
-}
-
-.nav-link.prev span {
-    color: #2e7d32;
-    font-weight: 500;
-}
-
-.nav-link.next span {
-    color: #2e7d32;
-    font-weight: 500;
 }

@@ -167,12 +167,15 @@ body {
     color: #343a40;
     min-height: 200px;
     white-space: pre-wrap;
+    /* 이전글/다음글 컨테이너와 분리를 위해 아래 속성을 추가합니다. */
+    padding-bottom: 30px;
+    border-bottom: 1px solid #e9ecef;
 }
 
 .article-navigation {
     margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #e9ecef;
+    padding-top: 0; /* padding-top을 0으로 변경하여 article-body와 분리되게 합니다. */
+    border-top: none; /* article-body에 border가 이미 있으므로 제거합니다. */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -200,18 +203,9 @@ body {
     text-decoration: underline;
 }
 
-.nav-link.next {
-    justify-content: flex-start;
-}
-
-.nav-link::before {
-    content: '이전글: ';
-}
-
-.nav-link.next::before {
-    content: '다음글: ';
-}
-
+/* 불필요한 CSS 선택자 제거 */
+.nav-link::before,
+.nav-link.next::before,
 .nav-link.hidden::before {
-    content: '';
+    content: none;
 }

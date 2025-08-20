@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 titleCell.className = 'col-title';
 
                 const titleLink = document.createElement('a');
-                titleLink.href = `/articles?article_id=${post.num}&${idType}=${parentId}`;
+                titleLink.href = `/article?article_id=${post.num}&${idType}=${parentId}`;
                 titleLink.textContent = post.article;
                 
                 titleCell.appendChild(titleLink);

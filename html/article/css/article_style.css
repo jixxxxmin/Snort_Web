@@ -130,13 +130,9 @@ body {
 
 .board-content {
     flex-grow: 1;
-    padding: 4vh 2.5vw;
-    background-color: #ffffff;
-    border-radius: 10px;
-    border: 1px solid #dee2e6;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
+    gap: 20px; /* 두 컨테이너 사이에 간격 추가 */
 }
 
 .hidden {
@@ -144,6 +140,14 @@ body {
 }
 
 /* --- 게시글 상세 페이지 전용 스타일 --- */
+.article-container {
+    padding: 4vh 2.5vw;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
 .article-header {
     margin-bottom: 20px;
 }
@@ -167,21 +171,17 @@ body {
     color: #343a40;
     min-height: 200px;
     white-space: pre-wrap;
-    /* 이전글/다음글 컨테이너와 분리를 위해 아래 속성을 추가합니다. */
-    padding-bottom: 30px;
-    border-bottom: 1px solid #e9ecef;
 }
 
-.article-navigation {
-    margin-top: 30px;
-    padding-top: 0; /* padding-top을 0으로 변경하여 article-body와 분리되게 합니다. */
-    border-top: none; /* article-body에 border가 이미 있으므로 제거합니다. */
+.article-nav-container {
+    padding: 20px 2.5vw;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: 10px;
-    font-size: 1rem;
-    color: #495057;
 }
 
 .nav-link {
@@ -189,6 +189,8 @@ body {
     gap: 10px;
     align-items: center;
     width: 100%;
+    font-size: 1rem;
+    color: #495057;
 }
 
 .nav-link a {
@@ -203,9 +205,6 @@ body {
     text-decoration: underline;
 }
 
-/* 불필요한 CSS 선택자 제거 */
-.nav-link::before,
-.nav-link.next::before,
-.nav-link.hidden::before {
-    content: none;
+.nav-link.next {
+    justify-content: flex-start;
 }

@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const titleLink = document.createElement('a');
                 // article_id는 post.id에 있다고 가정합니다.
-                titleLink.href = `/article/article?article_id=${post.id}&menu_id=${menuId}`;
+                titleLink.href = `/articles?article_id=${post.id}&menu_id=${menuId}`;
                 titleLink.textContent = post.article;
                 
                 titleCell.appendChild(titleLink);

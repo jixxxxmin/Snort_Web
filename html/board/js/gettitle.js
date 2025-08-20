@@ -1,5 +1,18 @@
 
 document.addEventListener('DOMContentLoaded', function() {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const menuId = urlParams.get('menu_id');
+    const submenuId = urlParams.get('submenu_id');
+
+    if (menuId) {
+        window.fetchBoardPosts('menu_id', menuId);
+        window.history.replaceState({}, document.title, window.location.pathname);
+    } else if (submenuId) {
+        window.fetchBoardPosts('submenu_id', submenuId);
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
     const placeholder = document.getElementById('placeholder-content');
     const boardContent = document.getElementById('board-content-section');
     const postListBody = document.getElementById('post-list-body');

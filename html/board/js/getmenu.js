@@ -1,12 +1,10 @@
 
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('getmenu')
+    fetch('/board/getmenu')
         .then(response => response.json())
         .then(data => {
             if (!data) return;
             renderMenu(data);
-            
-            localStorage.setItem('cachedMenu', JSON.stringify(data));
         })
         .catch(error => console.error('메뉴 데이터를 가져오는 중 오류 발생:', error));
 });
@@ -15,23 +13,23 @@ function renderMenu(data) {
     const mainMenu = document.getElementById('main-menu');
     mainMenu.innerHTML = '';
     
+    const currentQuery = new URLSearchParams(window.location.search);
+    const currentMenuId = currentQuery.get('menu_id');
+    const currentSubmenuId = currentQuery.get('submenu_id');
+
     data.forEach(mainMenuItem => {
         const mainLi = document.createElement('li');
         mainLi.className = 'main-menu-item';
         mainLi.dataset.menuId = mainMenuItem.id; 
-        
+
         const titleDiv = document.createElement('div');
         titleDiv.className = 'main-menu-title';
         titleDiv.textContent = mainMenuItem.이름;
         
         titleDiv.addEventListener('click', () => {
-            document.querySelectorAll('.submenu a').forEach(link => link.classList.remove('submenu-active'));
-            const isPinned = mainLi.classList.contains('pinned');
-            document.querySelectorAll('.main-menu-item').forEach(item => item.classList.remove('pinned'));
-            if (!isPinned) {
-                mainLi.classList.add('pinned');
+            if (typeof window.fetchBoardPosts === 'function') {
+                window.fetchBoardPosts('menu_id', mainMenuItem.id);
             }
-            window.fetchBoardPosts('menu_id', mainLi.dataset.menuId);
         });
 
         const subMenuUl = document.createElement('ul');
@@ -50,15 +48,9 @@ function renderMenu(data) {
                 
                 subLink.addEventListener('click', (e) => {
                     e.preventDefault();
-                    document.querySelectorAll('.main-menu-item').forEach(item => item.classList.remove('pinned'));
-                    document.querySelectorAll('.submenu a').forEach(link => link.classList.remove('submenu-active'));
-                    subLink.classList.add('submenu-active');
-                    
-                    const parentMainMenu = subLink.closest('.main-menu-item');
-                    if (parentMainMenu) {
-                        parentMainMenu.classList.add('pinned');
+                    if (typeof window.fetchBoardPosts === 'function') {
+                        window.fetchBoardPosts('submenu_id', subMenuItem.id);
                     }
-                    window.fetchBoardPosts('submenu_id', subLink.dataset.submenuId);
                 });
                 
                 subLink.addEventListener('mouseover', () => {
@@ -70,11 +62,20 @@ function renderMenu(data) {
 
                 subLi.appendChild(subLink);
                 subMenuUl.appendChild(subLi);
+                
+                if (currentSubmenuId === subMenuItem.id) {
+                    subLink.classList.add('submenu-active');
+                    mainLi.classList.add('pinned');
+                }
             });
         }
-
+        
         mainLi.appendChild(titleDiv);
         mainLi.appendChild(subMenuUl);
         mainMenu.appendChild(mainLi);
+        
+        if (currentMenuId === mainMenuItem.id && !currentSubmenuId) {
+            mainLi.classList.add('pinned');
+        }
     });
 }

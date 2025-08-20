@@ -93,9 +93,33 @@ body {
     transition: max-height 0.35s ease-in-out;
 }
 
-.main-menu-item:hover .submenu,
-.main-menu-item.pinned .submenu {
-    max-height: 500px;
+/* 메인 메뉴 아이템에 마우스를 올렸을 때 */
+.main-menu-item:hover > .main-menu-title {
+    background-color: #2e7d32;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* 서브메뉴에 마우스를 올렸을 때 */
+.submenu a:hover {
+    background-color: #eaf4ea;
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+/* 메인 메뉴가 고정되었을 때 */
+.main-menu-item.pinned > .main-menu-title {
+    background-color: #2e7d32;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* 서브메뉴에 마우스를 올렸을 때, 부모 메뉴의 제목에도 효과 적용 */
+.submenu a:hover ~ .main-menu-title, 
+.main-menu-title.parent-hover {
+    background-color: #2e7d32;
+    color: #ffffff;
+    font-weight: 600;
 }
 
 .submenu li {

@@ -1,33 +1,13 @@
 
 document.addEventListener('DOMContentLoaded', function() {
-    const cachedMenu = localStorage.getItem('cachedMenu');
-    
-    if (cachedMenu) {
-        console.log('캐시된 메뉴 데이터를 사용합니다.');
-        try {
-            const data = JSON.parse(cachedMenu);
-            renderMenu(data);
-        } catch (e) {
-            console.error('캐시 데이터 파싱 오류:', e);
-            fetchAndRenderMenu();
-        }
-    } else {
-        console.log('캐시가 없어 서버에서 새로 가져옵니다.');
-        fetchAndRenderMenu();
-    }
-});
-
-function fetchAndRenderMenu() {
     fetch('/board/getmenu')
         .then(response => response.json())
         .then(data => {
             if (!data) return;
-
-            localStorage.setItem('cachedMenu', JSON.stringify(data));
             renderMenu(data);
         })
         .catch(error => console.error('메뉴 데이터를 가져오는 중 오류 발생:', error));
-}
+});
 
 function renderMenu(data) {
     const mainMenu = document.getElementById('main-menu');
@@ -47,7 +27,10 @@ function renderMenu(data) {
         titleDiv.textContent = mainMenuItem.이름;
         
         titleDiv.addEventListener('click', () => {
-            window.location.href = `/board/?menu_id=${mainMenuItem.id}`;
+            if (typeof window.fetchBoardPosts === 'function') {
+                window.fetchBoardPosts('menu_id', mainMenuItem.id);
+                window.history.replaceState(null, '', `?menu_id=${mainMenuItem.id}`);
+            }
         });
 
         const subMenuUl = document.createElement('ul');
@@ -66,7 +49,10 @@ function renderMenu(data) {
                 
                 subLink.addEventListener('click', (e) => {
                     e.preventDefault();
-                    window.location.href = `/board/?submenu_id=${subMenuItem.id}`;
+                    if (typeof window.fetchBoardPosts === 'function') {
+                        window.fetchBoardPosts('submenu_id', subMenuItem.id);
+                        window.history.replaceState(null, '', `?submenu_id=${subMenuItem.id}`);
+                    }
                 });
                 
                 subLink.addEventListener('mouseover', () => {
@@ -89,7 +75,7 @@ function renderMenu(data) {
         mainLi.appendChild(titleDiv);
         mainLi.appendChild(subMenuUl);
         mainMenu.appendChild(mainLi);
-
+        
         if (currentMenuId === mainMenuItem.id && !currentSubmenuId) {
             mainLi.classList.add('pinned');
         }

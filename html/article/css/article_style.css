@@ -131,8 +131,8 @@ body {
     font-weight: 600;
 }
 
-/* 게시글 콘텐츠 영역 */
-.board-content {
+/* 게시글 콘텐츠 영역 - /board와 동일한 크기로 설정 */
+.content-container {
     flex-grow: 1;
     padding: 4vh 2.5vw;
     background-color: #ffffff;
@@ -141,8 +141,6 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    /* 블럭 간의 간격 추가 */
-    gap: 2vw;
 }
 
 .article-container {
@@ -177,10 +175,9 @@ body {
 
 /* 다음글/이전글 블럭 */
 .article-nav-container {
-    /* 기존 분리용 속성 제거 */
     margin-top: auto;
-    padding-top: 0;
-    border-top: none;
+    padding-top: 25px;
+    border-top: 1px solid #e9ecef;
     display: flex;
     justify-content: space-between;
     font-size: 1rem;

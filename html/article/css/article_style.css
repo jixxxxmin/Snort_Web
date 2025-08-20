@@ -1,8 +1,7 @@
-
 /* Google Fonts에서 Noto Sans KR 폰트 가져오기 */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
 
-/* 공통 스타일 */
+/* --- 공통 스타일 (헤더) --- */
 body {
     font-family: 'Noto Sans KR', Arial, sans-serif;
     background-color: #f8f9fa;
@@ -13,7 +12,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* 헤더 */
 .board-header {
     background-color: #ffffff;
     padding: 4vh 5vw;
@@ -31,42 +29,56 @@ body {
     color: #2e7d32;
 }
 
-/* 메인 컨테이너 레이아웃 */
-.main-container {
+/* --- 레이아웃 컨테이너 --- */
+.main-layout {
     display: flex;
     padding: 4vh 4vw;
     gap: 2vw;
 }
 
-/* 사이드바 */
-.sidebar {
+/* --- 사이드바 컨테이너 --- */
+.sidebar-container {
     width: 25%;
     min-width: 220px;
     max-width: 280px;
     flex-shrink: 0;
+    align-self: flex-start;
+}
+
+.sidebar {
     padding: 3vh 1.5vw;
     background-color: #ffffff;
     border: 1px solid #dee2e6;
     position: sticky;
     top: 5vh;
     height: fit-content;
-    align-self: flex-start;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* 메뉴 리스트 */
 .menu-list {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
+/* --- 메인 콘텐츠 컨테이너 --- */
+.content-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* --- 사이드바 메뉴 스타일 (변경 없음) --- */
 .main-menu-item {
     margin-bottom: 5px;
 }
 
-/* 메인 메뉴 제목 */
 .main-menu-title {
     display: block;
     padding: 12px 18px;
@@ -80,7 +92,6 @@ body {
     position: relative;
 }
 
-/* 서브메뉴 */
 .submenu {
     list-style: none;
     padding: 0;
@@ -110,7 +121,6 @@ body {
     transition: background-color 0.2s ease-out, color 0.2s ease-out, font-weight 0.2s;
 }
 
-/* 메인 메뉴에 마우스를 올렸을 때, 또는 자식 서브메뉴에 마우스를 올렸을 때 (JS가 .parent-hover 클래스 추가) */
 .main-menu-title:hover,
 .main-menu-title.parent-hover {
     background-color: #2e7d32;
@@ -118,40 +128,38 @@ body {
     font-weight: 600;
 }
 
-/* 서브메뉴에 마우스를 올렸을 때 */
 .submenu a:hover {
     background-color: #eaf4ea;
     color: #2e7d32;
     font-weight: 600;
 }
 
-/* 선택된 메인 메뉴 (사이트 메인 색상) */
 .main-menu-item.pinned > .main-menu-title {
     background-color: #2e7d32;
     color: #ffffff;
     font-weight: 600;
 }
 
-/* 선택된 서브메뉴 (메인 색상과 어울리는 연한 녹색) */
 .submenu a.submenu-active {
     background-color: #d9f3d9;
     color: #2e7d32;
     font-weight: 600;
 }
 
-/* 게시글 콘텐츠 영역 */
+/* --- 게시글 상세 페이지 스타일 (기존 board-content 스타일을 각 컨테이너로 분산) --- */
 .board-content {
-    flex-grow: 1;
+    /* 이 클래스는 더 이상 메인 컨테이너 역할이 아니므로 스타일 변경 */
+}
+
+/* 게시글 컨테이너 (새로운 박스) */
+.article-container {
     padding: 4vh 2.5vw;
     background-color: #ffffff;
     border-radius: 10px;
     border: 1px solid #dee2e6;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
 }
 
-/* --- 게시글 상세 페이지 전용 스타일 --- */
 .article-header {
     margin-bottom: 20px;
 }
@@ -174,24 +182,28 @@ body {
     line-height: 1.8;
     color: #343a40;
     min-height: 200px;
-    white-space: pre-wrap; /* 줄바꿈 문자를 인식하여 줄바꿈 */
+    white-space: pre-wrap;
 }
 
-.article-navigation {
-    margin-top: auto;
-    padding-top: 25px;
-    border-top: 1px solid #e9ecef;
+/* 이전/다음글 컨테이너 (새로운 박스) */
+.article-nav-container {
+    padding: 20px 2.5vw;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
-    justify-content: space-between;
-    font-size: 1rem;
-    color: #495057;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .nav-link {
-    flex-grow: 1;
     display: flex;
     gap: 10px;
     align-items: center;
+    width: 100%;
+    font-size: 1rem;
+    color: #495057;
 }
 
 .nav-link a {
@@ -207,9 +219,5 @@ body {
 }
 
 .nav-link.next {
-    justify-content: flex-end;
-}
-
-.hidden {
-    display: none !important;
+    justify-content: flex-start;
 }

@@ -30,14 +30,14 @@ body {
     color: #2e7d32;
 }
 
-/* 메인 컨테이너 레이아웃 - /board와 동일 */
+/* 메인 컨테이너 레이아웃 */
 .main-layout {
     display: flex;
     padding: 4vh 4vw;
     gap: 2vw;
 }
 
-/* 사이드바 - /board와 동일 */
+/* 사이드바 */
 .sidebar {
     width: 25%;
     min-width: 220px;
@@ -131,25 +131,23 @@ body {
     font-weight: 600;
 }
 
-/* 게시글 콘텐츠 영역 */
-.board-content {
+/* 콘텐츠 래퍼: 게시글과 네비게이션을 감싸고 간격 적용 */
+.content-wrapper {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+}
+
+/* 게시글 박스 스타일 */
+.article-box {
     padding: 4vh 2.5vw;
     background-color: #ffffff;
     border-radius: 10px;
     border: 1px solid #dee2e6;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
-    /* 블럭 간의 간격 추가 */
-    gap: 2vw;
 }
 
-.article-container {
-    flex-grow: 1;
-}
-
-/* --- 게시글 상세 페이지 전용 스타일 --- */
 .article-header {
     margin-bottom: 20px;
 }
@@ -175,12 +173,13 @@ body {
     white-space: pre-wrap;
 }
 
-/* 다음글/이전글 블럭 */
-.article-nav-container {
-    /* 자동 마진 제거하여 gap 속성이 적용되도록 함 */
-    margin-top: unset;
-    padding-top: 0;
-    border-top: none;
+/* 네비게이션 박스 스타일 */
+.nav-box {
+    padding: 2vh 2.5vw;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
     justify-content: space-between;
     font-size: 1rem;

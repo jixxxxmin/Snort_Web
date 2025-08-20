@@ -155,6 +155,18 @@ body {
     margin-bottom: 20px;
 }
 
+/* 게시글 제목 링크 스타일 */
+.post-table td.col-title a {
+    color: #343a40; /* 원하는 색상 코드로 변경 */
+    text-decoration: none;
+    transition: color 0.2s ease-out;
+}
+
+.post-table td.col-title a:hover {
+    color: #2e7d32; /* 마우스 올렸을 때의 색상 */
+    text-decoration: underline;
+}
+
 .article-title {
     margin-top: 0;
     margin-bottom: 10px;

@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const paginationControls = document.getElementById('pagination-controls');
 
     window.fetchBoardPosts = (idType, id) => {
+        postListBody.innerHTML = '';
+        paginationControls.innerHTML = '';
         placeholder.classList.add('hidden');
         boardContent.classList.remove('hidden');
 
@@ -28,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 allPosts = data;
                 currentPage = 1;
-                
                 renderPage(currentPage, id, idType);
                 setupPagination();
             })
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
         function renderPage(page, parentId, idType) {
+            postListBody.innerHTML = '';
             if (allPosts.length === 0) {
                 postListBody.innerHTML = `<tr><td colspan="3" class="no-posts">게시글이 없습니다.</td></tr>`;
                 return;
@@ -55,7 +57,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 titleCell.className = 'col-title';
 
                 const titleLink = document.createElement('a');
-                
                 titleLink.href = `/articles?article_id=${post.id}&${idType}=${parentId}`;
                 titleLink.textContent = post.article;
                 

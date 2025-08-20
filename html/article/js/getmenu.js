@@ -1,7 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     const cachedMenu = localStorage.getItem('cachedMenu');
-
+    
     if (cachedMenu) {
         console.log('캐시된 메뉴 데이터를 사용합니다.');
         try {
@@ -22,6 +22,7 @@ function fetchAndRenderMenu() {
         .then(response => response.json())
         .then(data => {
             if (!data) return;
+
             localStorage.setItem('cachedMenu', JSON.stringify(data));
             renderMenu(data);
         })
@@ -46,9 +47,7 @@ function renderMenu(data) {
         titleDiv.textContent = mainMenuItem.이름;
         
         titleDiv.addEventListener('click', () => {
-            if (typeof window.fetchBoardPosts === 'function') {
-                window.fetchBoardPosts('menu_id', mainMenuItem.id);
-            }
+            window.location.href = `/board/?menu_id=${mainMenuItem.id}`;
         });
 
         const subMenuUl = document.createElement('ul');
@@ -67,9 +66,7 @@ function renderMenu(data) {
                 
                 subLink.addEventListener('click', (e) => {
                     e.preventDefault();
-                    if (typeof window.fetchBoardPosts === 'function') {
-                        window.fetchBoardPosts('submenu_id', subMenuItem.id);
-                    }
+                    window.location.href = `/board/?submenu_id=${subMenuItem.id}`;
                 });
                 
                 subLink.addEventListener('mouseover', () => {

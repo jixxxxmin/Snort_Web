@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>게시글 보기</title>
+        <link rel="stylesheet" href="./css/article_style.css">
+    </head>
+    
+    <body>
+        <script src="./js/getmenu.js"></script>
+        <script src="./js/getarticle.js"></script>
+        
+        <header class="board-header">
+            <h1 class="board-title">게시판</h1>
+        </header>
+
+        <div class="main-container">
+            <aside class="sidebar">
+                <ul id="main-menu" class="menu-list">
+                    </ul>
+            </aside>
+
+            <main class="board-content">
+                <div class="article-container">
+                    <header class="article-header">
+                        <h2 id="article-title" class="article-title"></h2>
+                        <div class="article-info">
+                            <span id="article-timestamp" class="article-timestamp"></span>
+                        </div>
+                    </header>
+                    <hr>
+                    <section id="article-content" class="article-body">
+                        </section>
+                    <div class="article-navigation">
+                        <div id="prev-post" class="nav-link prev">
+                            <span>이전글:</span>
+                            <a href="#"></a>
+                        </div>
+                        <div id="next-post" class="nav-link next">
+                            <span>다음글:</span>
+                            <a href="#"></a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

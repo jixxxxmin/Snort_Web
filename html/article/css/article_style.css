@@ -1,0 +1,215 @@
+
+/* Google Fonts에서 Noto Sans KR 폰트 가져오기 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+/* 공통 스타일 */
+body {
+    font-family: 'Noto Sans KR', Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 헤더 */
+.board-header {
+    background-color: #ffffff;
+    padding: 4vh 5vw;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.board-title {
+    margin: 0;
+    font-size: clamp(1.5rem, 2.5vw, 1.8rem);
+    font-weight: 700;
+    color: #2e7d32;
+}
+
+/* 메인 컨테이너 레이아웃 */
+.main-container {
+    display: flex;
+    padding: 4vh 4vw;
+    gap: 2vw;
+}
+
+/* 사이드바 */
+.sidebar {
+    width: 25%;
+    min-width: 220px;
+    max-width: 280px;
+    flex-shrink: 0;
+    padding: 3vh 1.5vw;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    position: sticky;
+    top: 5vh;
+    height: fit-content;
+    align-self: flex-start;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* 메뉴 리스트 */
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-menu-item {
+    margin-bottom: 5px;
+}
+
+/* 메인 메뉴 제목 */
+.main-menu-title {
+    display: block;
+    padding: 12px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #343a40;
+    font-size: 1.05rem;
+    transition: background-color 0.2s ease-out, color 0.2s ease-out;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+}
+
+/* 서브메뉴 */
+.submenu {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease-in-out;
+}
+
+.main-menu-item:hover .submenu,
+.main-menu-item.pinned .submenu {
+    max-height: 500px;
+}
+
+.submenu li {
+    margin-bottom: 2px;
+}
+
+.submenu a {
+    display: block;
+    font-weight: 400;
+    padding: 9px 18px 9px 38px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #495057;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease-out, color 0.2s ease-out, font-weight 0.2s;
+}
+
+/* 메인 메뉴에 마우스를 올렸을 때, 또는 자식 서브메뉴에 마우스를 올렸을 때 (JS가 .parent-hover 클래스 추가) */
+.main-menu-title:hover,
+.main-menu-title.parent-hover {
+    background-color: #2e7d32;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* 서브메뉴에 마우스를 올렸을 때 */
+.submenu a:hover {
+    background-color: #eaf4ea;
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+/* 선택된 메인 메뉴 (사이트 메인 색상) */
+.main-menu-item.pinned > .main-menu-title {
+    background-color: #2e7d32;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* 선택된 서브메뉴 (메인 색상과 어울리는 연한 녹색) */
+.submenu a.submenu-active {
+    background-color: #d9f3d9;
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+/* 게시글 콘텐츠 영역 */
+.board-content {
+    flex-grow: 1;
+    padding: 4vh 2.5vw;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- 게시글 상세 페이지 전용 스타일 --- */
+.article-header {
+    margin-bottom: 20px;
+}
+
+.article-title {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #212529;
+}
+
+.article-info {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.article-body {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #343a40;
+    min-height: 200px;
+    white-space: pre-wrap; /* 줄바꿈 문자를 인식하여 줄바꿈 */
+}
+
+.article-navigation {
+    margin-top: auto;
+    padding-top: 25px;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    color: #495057;
+}
+
+.nav-link {
+    flex-grow: 1;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.nav-link a {
+    color: #2e7d32;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease-out;
+}
+
+.nav-link a:hover {
+    color: #1b5e20;
+    text-decoration: underline;
+}
+
+.nav-link.next {
+    justify-content: flex-end;
+}
+
+.hidden {
+    display: none !important;
+}

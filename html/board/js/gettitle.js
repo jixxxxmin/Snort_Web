@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 allPosts = data;
                 currentPage = 1;
-                renderPage(currentPage);
+                renderPage(currentPage, id); // id를 renderPage 함수로 전달
                 setupPagination();
             })
             .catch(error => {
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 paginationControls.innerHTML = '';
             });
 
-        function renderPage(page) {
+        function renderPage(page, menuId) {
             postListBody.innerHTML = '';
             if (allPosts.length === 0) {
                 postListBody.innerHTML = `<tr><td colspan="3" class="no-posts">게시글이 없습니다.</td></tr>`;
@@ -50,11 +50,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
             postsToDisplay.forEach(post => {
                 const row = document.createElement('tr');
+                
+                // 1. 제목에 하이퍼링크를 추가합니다.
+                const titleCell = document.createElement('td');
+                titleCell.className = 'col-title';
+
+                const titleLink = document.createElement('a');
+                // article_id는 post.id에 있다고 가정합니다.
+                titleLink.href = `/article/article?article_id=${post.id}&menu_id=${menuId}`;
+                titleLink.textContent = post.article;
+                
+                titleCell.appendChild(titleLink);
+
                 row.innerHTML = `
                     <td class="col-num">${post.num}</td>
-                    <td class="col-title">${post.article}</td>
                     <td class="col-date">${post.timestamp}</td>
                 `;
+                row.querySelector('.col-num').after(titleCell); // titleCell을 num 열 뒤에 삽입합니다.
+
                 postListBody.appendChild(row);
             });
         }

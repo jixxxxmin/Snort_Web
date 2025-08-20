@@ -3,17 +3,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const cachedMenu = localStorage.getItem('cachedMenu');
     
     if (cachedMenu) {
-        console.log('Cached Menu Data');
+        console.log('캐시된 메뉴 데이터를 사용합니다.');
         try {
             const data = JSON.parse(cachedMenu);
             renderMenu(data);
         } catch (e) {
-            console.error('Cache Data Parsing Error :', e);
+            console.error('캐시 데이터 파싱 오류:', e);
             fetchAndRenderMenu();
         }
     } else {
-        console.log('Get new Menu Data');
+        console.log('캐시가 없어 서버에서 새로 가져옵니다.');
         fetchAndRenderMenu();
+    }
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const menuId = urlParams.get('menu_id');
+    const submenuId = urlParams.get('submenu_id');
+    
+    if (menuId) {
+        window.fetchBoardPosts('menu_id', menuId);
+    } else if (submenuId) {
+        window.fetchBoardPosts('submenu_id', submenuId);
     }
 });
 
@@ -22,7 +32,6 @@ function fetchAndRenderMenu() {
         .then(response => response.json())
         .then(data => {
             if (!data) return;
-
             localStorage.setItem('cachedMenu', JSON.stringify(data));
             renderMenu(data);
         })
@@ -47,7 +56,8 @@ function renderMenu(data) {
         titleDiv.textContent = mainMenuItem.이름;
         
         titleDiv.addEventListener('click', () => {
-            window.location.href = `/board?menu_id=${mainMenuItem.id}`;
+            window.history.pushState(null, '', `?menu_id=${mainMenuItem.id}`);
+            window.fetchBoardPosts('menu_id', mainMenuItem.id);
         });
 
         const subMenuUl = document.createElement('ul');
@@ -59,14 +69,15 @@ function renderMenu(data) {
             mainMenuItem.메뉴.forEach(subMenuItem => {
                 const subLi = document.createElement('li');
                 const subLink = document.createElement('a');
-                subLink.href = `/board?submenu_id=${subMenuItem.id}`;
+                subLink.href = '#';
                 subLink.textContent = subMenuItem.이름;
                 subLink.title = subMenuItem.설명;
                 subLink.dataset.submenuId = subMenuItem.id;
                 
                 subLink.addEventListener('click', (e) => {
                     e.preventDefault();
-                    window.location.href = `/board?submenu_id=${subMenuItem.id}`;
+                    window.history.pushState(null, '', `?submenu_id=${subMenuItem.id}`);
+                    window.fetchBoardPosts('submenu_id', subMenuItem.id);
                 });
                 
                 subLink.addEventListener('mouseover', () => {

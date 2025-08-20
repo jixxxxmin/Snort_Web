@@ -47,13 +47,17 @@ body {
 
 /* 사이드바 - 게시판 페이지와 동일 */
 .sidebar {
+    width: 25%;
+    min-width: 220px;
+    max-width: 280px;
+    flex-shrink: 0;
     /* 상하, 좌우 패딩을 비율 단위로 변경 */
     padding: 3vh 1.5vw;
     background-color: #ffffff;
     border: 1px solid #dee2e6;
     position: sticky;
-    /* main-layout의 상단 패딩과 맞춥니다. */
-    top: 5vh;
+    /* main-container의 상단 패딩과 맞춥니다. */
+    top: 5vh; 
     height: fit-content;
     align-self: flex-start;
     border-radius: 10px;

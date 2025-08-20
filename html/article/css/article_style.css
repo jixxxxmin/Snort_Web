@@ -1,8 +1,7 @@
-
 /* Google Fonts에서 Noto Sans KR 폰트 가져오기 */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
 
-/* 공통 스타일 */
+/* --- 공통 스타일 (헤더, 컨테이너, 사이드바) --- */
 body {
     font-family: 'Noto Sans KR', Arial, sans-serif;
     background-color: #f8f9fa;
@@ -13,7 +12,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* 헤더 */
 .board-header {
     background-color: #ffffff;
     padding: 4vh 5vw;
@@ -31,14 +29,12 @@ body {
     color: #2e7d32;
 }
 
-/* 메인 컨테이너 레이아웃 */
 .main-container {
     display: flex;
     padding: 4vh 4vw;
     gap: 2vw;
 }
 
-/* 사이드바 */
 .sidebar {
     width: 25%;
     min-width: 220px;
@@ -55,7 +51,6 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* 메뉴 리스트 */
 .menu-list {
     list-style: none;
     padding: 0;
@@ -66,7 +61,6 @@ body {
     margin-bottom: 5px;
 }
 
-/* 메인 메뉴 제목 */
 .main-menu-title {
     display: block;
     padding: 12px 18px;
@@ -80,7 +74,6 @@ body {
     position: relative;
 }
 
-/* 서브메뉴 */
 .submenu {
     list-style: none;
     padding: 0;
@@ -110,7 +103,6 @@ body {
     transition: background-color 0.2s ease-out, color 0.2s ease-out, font-weight 0.2s;
 }
 
-/* 메인 메뉴에 마우스를 올렸을 때, 또는 자식 서브메뉴에 마우스를 올렸을 때 (JS가 .parent-hover 클래스 추가) */
 .main-menu-title:hover,
 .main-menu-title.parent-hover {
     background-color: #2e7d32;
@@ -118,28 +110,24 @@ body {
     font-weight: 600;
 }
 
-/* 서브메뉴에 마우스를 올렸을 때 */
 .submenu a:hover {
     background-color: #eaf4ea;
     color: #2e7d32;
     font-weight: 600;
 }
 
-/* 선택된 메인 메뉴 (사이트 메인 색상) */
 .main-menu-item.pinned > .main-menu-title {
     background-color: #2e7d32;
     color: #ffffff;
     font-weight: 600;
 }
 
-/* 선택된 서브메뉴 (메인 색상과 어울리는 연한 녹색) */
 .submenu a.submenu-active {
     background-color: #d9f3d9;
     color: #2e7d32;
     font-weight: 600;
 }
 
-/* 게시글 콘텐츠 영역 */
 .board-content {
     flex-grow: 1;
     padding: 4vh 2.5vw;
@@ -149,6 +137,10 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
+}
+
+.hidden {
+    display: none !important;
 }
 
 /* --- 게시글 상세 페이지 전용 스타일 --- */
@@ -174,24 +166,26 @@ body {
     line-height: 1.8;
     color: #343a40;
     min-height: 200px;
-    white-space: pre-wrap; /* 줄바꿈 문자를 인식하여 줄바꿈 */
+    white-space: pre-wrap;
 }
 
 .article-navigation {
-    margin-top: auto;
-    padding-top: 25px;
+    margin-top: 30px;
+    padding-top: 20px;
     border-top: 1px solid #e9ecef;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
     font-size: 1rem;
     color: #495057;
 }
 
 .nav-link {
-    flex-grow: 1;
     display: flex;
     gap: 10px;
     align-items: center;
+    width: 100%;
 }
 
 .nav-link a {
@@ -207,9 +201,17 @@ body {
 }
 
 .nav-link.next {
-    justify-content: flex-end;
+    justify-content: flex-start;
 }
 
-.hidden {
-    display: none !important;
+.nav-link::before {
+    content: '이전글: ';
+}
+
+.nav-link.next::before {
+    content: '다음글: ';
+}
+
+.nav-link.hidden::before {
+    content: '';
 }

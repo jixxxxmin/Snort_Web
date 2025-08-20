@@ -37,7 +37,7 @@ body {
     gap: 2vw;
 }
 
-/* 사이드바 - 게시판 페이지와 동일하게 직접 너비 지정 */
+/* 사이드바 */
 .sidebar {
     width: 25%;
     min-width: 220px;
@@ -47,7 +47,6 @@ body {
     background-color: #ffffff;
     border: 1px solid #dee2e6;
     position: sticky;
-    /* main-layout의 상단 패딩과 맞춥니다. */
     top: 5vh;
     height: fit-content;
     align-self: flex-start;
@@ -140,7 +139,6 @@ body {
 }
 
 .board-content {
-    /* 상하, 좌우 패딩을 비율 단위로 변경 */
     padding: 4vh 2.5vw;
     background-color: #ffffff;
     border-radius: 10px;
@@ -151,7 +149,6 @@ body {
 }
 
 /* 게시글 보기 페이지 스타일 */
-
 .article-container {
     padding-bottom: 2rem;
     border-bottom: 1px solid #e9ecef;
@@ -257,6 +254,5 @@ body {
 }
 
 .nav-link a:hover {
-    color: #2e7d32;
     text-decoration: underline;
 }

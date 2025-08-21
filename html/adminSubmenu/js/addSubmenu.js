@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     const contentArea = document.getElementById('submenu-content-area');
     const tabLinks = document.querySelectorAll('.content-nav .tab-link');

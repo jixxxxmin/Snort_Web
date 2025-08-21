@@ -68,7 +68,8 @@ html, body {
     color: #ffffff;
     text-decoration: none;
     border-radius: 8px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* transition에 box-shadow 추가 */
+    /* [수정] transform, box-shadow 전환 효과 제거 */
+    transition: background-color 0.3s ease;
     font-weight: 500;
     text-align: left;
     font-size: 1.2rem;
@@ -81,19 +82,18 @@ html, body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* JS 하이라이트 클래스와 호버 효과를 서브메뉴 기준으로 통일 */
-/* active와는 다른 색상으로 구분하여 시각적 혼동 방지 */
+/* [수정] JS 하이라이트 클래스와 호버 효과를 서브메뉴 기준으로 통일 */
 .nav-link.highlight,
 .nav-link:hover:not(.active) {
-    background-color: #4CAF50; /* Active 색상과 다른 색상 (약간 밝은 초록) */
+    background-color: #2e7d32;
     font-weight: bold;
-    box-shadow: none; /* 하이라이트 시에는 그림자 제거 */
+    /* transform 및 box-shadow 속성 제거 */
 }
 
 /* 서브메뉴 스타일 */
 .submenu {
     list-style: none;
-    /* 좌우 패딩을 추가하여 메인메뉴와 통일감을 줍니다. JS가 paddingTop을 동적으로 설정합니다. */
+    /* [수정] 좌우 패딩을 추가하여 메인메뉴와 통일감을 줍니다. JS가 paddingTop을 동적으로 설정합니다. */
     padding: 0 20px 20px calc(16vw + 20px); 
     margin: 0;
     background-color: #414A43; /* 서브메뉴 배경 */
@@ -120,7 +120,7 @@ html, body {
     transition: opacity 0.3s ease;
 }
 
-/* 서브메뉴 아이템 간격을 메인메뉴와 통일합니다. */
+/* [추가] 서브메뉴 아이템 간격을 메인메뉴와 통일합니다. */
 .submenu li {
     margin-bottom: 14px;
 }
@@ -133,7 +133,7 @@ html, body {
     text-decoration: none;
     font-size: 1.2rem;
     transition: background-color 0.2s ease;
-    /* 모서리를 둥글게 만들어 버튼 모양으로 통일합니다. */
+    /* [추가] 모서리를 둥글게 만들어 버튼 모양으로 통일합니다. */
     border-radius: 8px;
 }
 

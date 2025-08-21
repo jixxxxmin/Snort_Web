@@ -1,7 +1,5 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-    let originallyActiveLink = null;
-
     const setActiveLink = () => {
         const currentPath = window.location.pathname;
         const navLinks = document.querySelectorAll('#main-nav-list .nav-link');
@@ -23,8 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (activeLinkElement) {
             activeLinkElement.classList.add('active');
         }
-
-        originallyActiveLink = activeLinkElement;
     };
 
     setActiveLink();
@@ -47,8 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    const sidebar = document.getElementById('sidebar');
-
     menuItems.forEach(item => {
         const navLink = item.querySelector('.nav-link');
 
@@ -56,14 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
             clearTimeout(hideTimer);
             hideAll();
 
-            if (originallyActiveLink) {
-                originallyActiveLink.classList.remove('active');
-            }
-
-            if (navLink !== originallyActiveLink) {
+            if (!navLink.classList.contains('active')) {
                 navLink.classList.add('highlight');
-            } else {
-                navLink.classList.add('active');
             }
 
             const menuId = item.dataset.menu;
@@ -91,14 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 removeAllHighlights();
 
                 const mainLink = correspondingItem.querySelector('.nav-link');
-                if (originallyActiveLink) {
-                    originallyActiveLink.classList.remove('active');
-                }
-
-                if (mainLink !== originallyActiveLink) {
+                if (!mainLink.classList.contains('active')) {
                     mainLink.classList.add('highlight');
-                } else {
-                    mainLink.classList.add('active');
                 }
             }
         });
@@ -106,17 +88,4 @@ document.addEventListener('DOMContentLoaded', () => {
             hideTimer = setTimeout(hideAll, 200);
         });
     });
-
-    if (sidebar) {
-        sidebar.addEventListener('mouseleave', () => {
-            setTimeout(() => {
-                if (originallyActiveLink) {
-                    document.querySelectorAll('#main-nav-list .nav-link').forEach(link => {
-                        link.classList.remove('active');
-                    });
-                    originallyActiveLink.classList.add('active');
-                }
-            }, 250);
-        });
-    }
 });

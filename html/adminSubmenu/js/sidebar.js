@@ -147,6 +147,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     mainLink.classList.add('highlight');
                 }
             }
+            if (!submenu.classList.contains('show')) {
+                const itemRect = correspondingItem.getBoundingClientRect();
+                submenu.style.paddingTop = `${itemRect.top}px`;
+                requestAnimationFrame(() => {
+                     submenu.classList.add('show');
+                });
+            }
+
         });
         submenu.addEventListener('mouseleave', () => {
             isMouseOverSubmenu = false;

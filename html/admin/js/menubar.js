@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    const hideAllSubmenus = () => {
+    const hideAll = () => {
         removeAllHighlights();
         submenus.forEach(submenu => {
             submenu.classList.remove('show');
@@ -49,19 +49,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     menuItems.forEach(item => {
         const navLink = item.querySelector('.nav-link');
+
         item.addEventListener('mouseenter', () => {
             clearTimeout(hideTimer);
-            hideAllSubmenus();
-            
-            if (!navLink.classList.contains('active')) {
-                navLink.classList.add('highlight');
-            }
-            
+            hideAll();
+
+            navLink.classList.add('highlight');
+
             const menuId = item.dataset.menu;
             const targetSubmenu = document.querySelector(`.submenu[data-menu="${menuId}"]`);
+            
             if (targetSubmenu) {
                 const itemRect = item.getBoundingClientRect();
+                
                 targetSubmenu.style.paddingTop = `${itemRect.top}px`;
+
                 requestAnimationFrame(() => {
                     targetSubmenu.classList.add('show');
                 });
@@ -69,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         item.addEventListener('mouseleave', () => {
-            hideTimer = setTimeout(hideAllSubmenus, 200);
+            hideTimer = setTimeout(hideAll, 200);
         });
     });
 
@@ -80,14 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const correspondingItem = document.querySelector(`.nav-item[data-menu="${menuId}"]`);
             if (correspondingItem) {
                 removeAllHighlights();
-                const mainLink = correspondingItem.querySelector('.nav-link');
-                if (!mainLink.classList.contains('active')) {
-                    mainLink.classList.add('highlight');
-                }
+                correspondingItem.querySelector('.nav-link').classList.add('highlight');
             }
         });
+
         submenu.addEventListener('mouseleave', () => {
-            hideTimer = setTimeout(hideAllSubmenus, 200);
+            hideTimer = setTimeout(hideAll, 200);
         });
     });
 
@@ -96,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     sidebar.addEventListener('mouseover', (e) => {
         if (e.target.matches('.nav-link')) {
+            currentlyActiveMainMenu = document.querySelector('#main-nav-list .nav-link.active');
             if (currentlyActiveMainMenu && currentlyActiveMainMenu !== e.target) {
                 currentlyActiveMainMenu.classList.remove('active');
             }
@@ -116,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         tabLinks.forEach(link => {
             link.addEventListener('click', function(e) {
-                e.preventDefault();
+                e.preventDefault(); 
 
                 if (currentlyActiveTab) {
                     currentlyActiveTab.classList.remove('active');

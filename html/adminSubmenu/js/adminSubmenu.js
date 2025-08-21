@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <input type="text" id="menu-name" class="form-control" placeholder="예: 공지사항">
                 </div>
                 <div class="form-group">
-                    <label for="menu-url">메뉴 URL</label>
+                    <label for="menu-url">메뉴 설명</label>
                     <input type="text" id="menu-url" class="form-control" placeholder="예: /board/notice">
                 </div>
                 <button type="submit" class="btn btn-primary">추가하기</button>

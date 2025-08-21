@@ -39,16 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    const hideAllSubmenuPanels = () => {
+    const hideAll = () => {
+        removeAllHighlights();
         submenus.forEach(submenu => {
             submenu.classList.remove('show');
             submenu.style.paddingTop = '';
         });
-    };
-
-    const resetHoverState = () => {
-        removeAllHighlights();
-        hideAllSubmenuPanels();
     };
 
     const sidebar = document.getElementById('sidebar');
@@ -58,10 +54,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         item.addEventListener('mouseenter', () => {
             clearTimeout(hideTimer);
-            resetHoverState();
+            hideAll();
+
+            if (originallyActiveLink) {
+                originallyActiveLink.classList.remove('active');
+            }
 
             if (navLink !== originallyActiveLink) {
                 navLink.classList.add('highlight');
+            } else {
+                navLink.classList.add('active');
             }
 
             const menuId = item.dataset.menu;
@@ -76,35 +78,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         item.addEventListener('mouseleave', () => {
-            hideTimer = setTimeout(resetHoverState, 200);
+            hideTimer = setTimeout(hideAll, 200);
         });
     });
 
     submenus.forEach(submenu => {
         submenu.addEventListener('mouseenter', () => {
             clearTimeout(hideTimer);
-            removeAllHighlights();
-
             const menuId = submenu.dataset.menu;
             const correspondingItem = document.querySelector(`.nav-item[data-menu="${menuId}"]`);
             if (correspondingItem) {
+                removeAllHighlights();
+
                 const mainLink = correspondingItem.querySelector('.nav-link');
+                if (originallyActiveLink) {
+                    originallyActiveLink.classList.remove('active');
+                }
+
                 if (mainLink !== originallyActiveLink) {
                     mainLink.classList.add('highlight');
+                } else {
+                    mainLink.classList.add('active');
                 }
             }
         });
         submenu.addEventListener('mouseleave', () => {
-            hideTimer = setTimeout(resetHoverState, 200);
+            hideTimer = setTimeout(hideAll, 200);
         });
     });
 
     if (sidebar) {
         sidebar.addEventListener('mouseleave', () => {
             setTimeout(() => {
-                resetHoverState();
-
                 if (originallyActiveLink) {
+                    document.querySelectorAll('#main-nav-list .nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
                     originallyActiveLink.classList.add('active');
                 }
             }, 250);

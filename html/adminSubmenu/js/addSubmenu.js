@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
 
-                    const apiUrl = `http://192.168.207.133/admin/create_submenu`;
+                    const apiUrl = `create_submenu`;
                     const formData = new URLSearchParams();
                     formData.append('submenu_name', submenuName);
                     formData.append('menu_id', menuId);

@@ -14,7 +14,7 @@ html, body {
     background-color: #2A332C; /* 메인 사이드바 배경 */
     color: #ffffff;
     padding: 20px 0;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-top-right-radius: 15px;
@@ -97,7 +97,7 @@ html, body {
     padding: 0 20px 20px calc(16vw + 20px); 
     margin: 0;
     background-color: #414A43; /* 서브메뉴 배경 */
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
     position: fixed;
     left: 0vw;
     top: 0;

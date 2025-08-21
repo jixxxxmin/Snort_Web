@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin - 메뉴 구조 관리</title>
+        <link rel="stylesheet" href="./css/adminSubmenu_style.css">
+    </head>
+
+    <body>
+        <script src="./js/adminSubmenu.js"></script>
+        <script src="./js/dashBoard.js"></script>
+        <script src="./js/dashBoardSubmenu.js"></script>
+
+        <div id="sidebar">
+            <h2 class="text-3xl">Admin</h2>
+            <div class="card card-dark">
+                <ul id="main-nav-list">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin"> DashBoard </a>
+                    </li>
+                    <li class="nav-item has-submenu" data-menu="menu-manage">
+                        <a class="nav-link active"> 메뉴 구조 관리 </a>
+                    </li>
+                    <li class="nav-item has-submenu" data-menu="article-manage">
+                        <a class="nav-link"> 게시글 관리 </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="submenu-container">
+            <ul class="submenu" data-menu="menu-manage">
+                <li><a href="#" data-tab="add">서브메뉴 추가</a></li>
+                <li><a href="#" data-tab="delete">서브메뉴 삭제</a></li>
+                <li><a href="#" data-tab="edit">서브메뉴 수정</a></li>
+            </ul>
+            <ul class="submenu" data-menu="article-manage">
+                <li><a href="adminArticle.html?id=test1">게시글 Test 1</a></li>
+                <li><a href="adminArticle.html?id=test2">게시글 Test 2</a></li>
+            </ul>
+        </div>
+
+        <main id="main-content">
+            <h1>메뉴 구조 관리</h1>
+            <nav class="content-nav">
+                <a href="#" class="tab-link active" data-tab="add">추가</a>
+                <a href="#" class="tab-link" data-tab="delete">삭제</a>
+                <a href="#" class="tab-link" data-tab="edit">수정</a>
+            </nav>
+            <div id="submenu-content-area">
+            </div>
+        </main>
+    </body>
+</html>

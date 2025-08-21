@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const contentArea = document.getElementById('submenu-content-area');
     const tabLinks = document.querySelectorAll('.content-nav .tab-link');
-    let currentTab = 'add'; 
+    let currentTab = new URLSearchParams(window.location.search).get('submenu') || 'add'; 
 
     const messageArea = document.createElement('div');
     messageArea.id = 'status-message';
@@ -33,14 +33,22 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>새로운 서브메뉴 항목을 생성합니다. 상위 메뉴를 반드시 선택해야 합니다.</p>
             <form id="addSubmenuForm">
                 <div class="form-group">
-                    <label for="add-menu-id">상위 메뉴 선택</label>
-                    <select id="add-menu-id" name="menu_id" class="form-control" required>
-                        <option value="" selected disabled>-- 필수로 선택해주세요 --</option>
-                        <option value="1">공식 배포 룰</option>
-                        <option value="2">비공식 배포 룰</option>
-                        <option value="3">자체 제작 룰</option>
-                    </select>
-                    <small id="menu-id-error" style="color: red; display: none; margin-top: 5px;">상위 메뉴를 선택해야 합니다.</small>
+                    <label>상위 메뉴 선택 (하나 이상 선택 가능)</label>
+                    <div id="add-menu-id-checkboxes" class="form-controls-checkbox-group">
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="menu_id" value="1"> 공식 배포 룰
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="menu_id" value="2"> 비공식 배포 룰
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="menu_id" value="3"> 자체 제작 룰
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <small id="menu-id-error" style="color: red; display: none; margin-top: 5px;">상위 메뉴를 하나 이상 선택해야 합니다.</small>
                 </div>
                 <div class="form-group">
                     <label for="add-submenu-name">서브메뉴 이름</label>
@@ -70,17 +78,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 addForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
 
-                    const menuId = document.getElementById('add-menu-id').value;
+                    const selectedMenuIds = Array.from(document.querySelectorAll('#add-menu-id-checkboxes input[name="menu_id"]:checked'))
+                                                .map(cb => cb.value);
                     const submenuName = document.getElementById('add-submenu-name').value;
                     const descript = document.getElementById('add-descript').value;
 
-                    if (!menuId) {
+                    if (selectedMenuIds.length === 0) {
                         const menuIdError = document.getElementById('menu-id-error');
                         if (menuIdError) {
                             menuIdError.style.display = 'block';
                         }
                         if (window.showMessage) {
-                            window.showMessage('상위 메뉴를 선택해야 합니다.', false);
+                            window.showMessage('상위 메뉴를 하나 이상 선택해야 합니다.', false);
                         }
                         return;
                     } else {
@@ -97,10 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
 
-                    const apiUrl = `create_submenu`;
+                    const apiUrl = `/admin/adminsubmenu`; 
                     const formData = new URLSearchParams();
                     formData.append('submenu_name', submenuName);
-                    formData.append('menu_id', menuId);
+                    formData.append('menu_id', selectedMenuIds.join(',')); 
                     formData.append('descript', descript);
                     formData.append('action', 'add');
 
@@ -110,16 +119,31 @@ document.addEventListener('DOMContentLoaded', () => {
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
                             },
-                            body: formData.toString()
+                            body: formData.toString(),
+                            credentials: 'include'
                         });
 
-                        if (response.status === 200) {
+                        if (response.status === 201 || response.status === 200) { 
                             if (window.showMessage) {
                                 window.showMessage('서브메뉴가 성공적으로 추가되었습니다!', true);
                             }
                             addForm.reset();
-                            document.getElementById('add-menu-id').value = "";
-                        } else {
+                            document.querySelectorAll('#add-menu-id-checkboxes input[name="menu_id"]:checked').forEach(cb => {
+                                cb.checked = false;
+                            });
+                        } else if (response.status === 302) {
+                             if (window.showMessage) {
+                                window.showMessage('인증이 필요합니다. 로그인 페이지로 리디렉션됩니다.', false);
+                            }
+                            console.warn('인증 필요: 302 리디렉션 발생', response.headers.get('Location'));
+                            window.location.href = response.headers.get('Location');
+                        } else if (response.status === 404) {
+                             if (window.showMessage) {
+                                window.showMessage('요청한 리소스를 찾을 수 없습니다 (404 Not Found).', false);
+                            }
+                            console.error('404 Not Found:', apiUrl);
+                        }
+                        else {
                             if (window.showMessage) {
                                 window.showMessage(`서브메뉴 추가 실패: ${response.status} ${response.statusText}`, false);
                             }

@@ -1,6 +1,5 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-   
     let originallyActiveLink = null;
 
     const setActiveLink = () => {
@@ -8,35 +7,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const navLinks = document.querySelectorAll('#main-nav-list .nav-link');
 
         navLinks.forEach(link => {
-            link.classList.remove('active'); 
+            link.classList.remove('active');
         });
 
-        let activeLinkFound = false;
+        let activeLinkElement = null;
 
         if (currentPath.includes('adminSubmenu')) {
-            const menuManageLink = document.querySelector('.nav-item[data-menu="menu-manage"] .nav-link');
-            if (menuManageLink) {
-                menuManageLink.classList.add('active');
-                activeLinkFound = true;
-            }
+            activeLinkElement = document.querySelector('.nav-item[data-menu="menu-manage"] .nav-link');
         } else if (currentPath.includes('adminArticle')) {
-            const articleManageLink = document.querySelector('.nav-item[data-menu="article-manage"] .nav-link');
-            if (articleManageLink) {
-                articleManageLink.classList.add('active');
-                activeLinkFound = true;
-            }
-        } 
-        
-        if (!activeLinkFound) {
-            const dashboardLink = document.querySelector('.nav-item a[href="/admin"]');
-            if (dashboardLink && (currentPath === '/admin' || currentPath === '/admin/')) {
-                dashboardLink.classList.add('active');
-            }
+            activeLinkElement = document.querySelector('.nav-item[data-menu="article-manage"] .nav-link');
+        } else if (currentPath === '/admin' || currentPath === '/admin/') {
+            activeLinkElement = document.querySelector('.nav-item a[href="/admin"]');
         }
 
-        originallyActiveLink = document.querySelector('#main-nav-list .nav-link.active');
+        if (activeLinkElement) {
+            activeLinkElement.classList.add('active');
+        }
+
+        originallyActiveLink = activeLinkElement;
     };
-    
+
     setActiveLink();
 
     const menuItems = document.querySelectorAll('.has-submenu');
@@ -66,14 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
             clearTimeout(hideTimer);
             hideAll();
 
-            if (originallyActiveLink && originallyActiveLink !== navLink) {
+            if (originallyActiveLink) {
                 originallyActiveLink.classList.remove('active');
             }
 
-            if (!navLink.classList.contains('active')) {
+            if (navLink !== originallyActiveLink) {
                 navLink.classList.add('highlight');
+            } else {
+                navLink.classList.add('active');
             }
-            
+
             const menuId = item.dataset.menu;
             const targetSubmenu = document.querySelector(`.submenu[data-menu="${menuId}"]`);
             if (targetSubmenu) {
@@ -99,12 +91,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 removeAllHighlights();
 
                 const mainLink = correspondingItem.querySelector('.nav-link');
-                if (originallyActiveLink && originallyActiveLink !== mainLink) {
+                if (originallyActiveLink) {
                     originallyActiveLink.classList.remove('active');
                 }
 
-                if (!mainLink.classList.contains('active')) {
+                if (mainLink !== originallyActiveLink) {
                     mainLink.classList.add('highlight');
+                } else {
+                    mainLink.classList.add('active');
                 }
             }
         });
@@ -116,7 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sidebar) {
         sidebar.addEventListener('mouseleave', () => {
             setTimeout(() => {
-                if (originallyActiveLink && !originallyActiveLink.classList.contains('active')) {
+                if (originallyActiveLink) {
+                    document.querySelectorAll('#main-nav-list .nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
                     originallyActiveLink.classList.add('active');
                 }
             }, 250);

@@ -39,15 +39,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    const hideAll = () => {
-        removeAllHighlights();
-        document.querySelectorAll('#main-nav-list .nav-link').forEach(link => {
-            link.classList.remove('active');
-        });
+    const hideAllSubmenuPanels = () => {
         submenus.forEach(submenu => {
             submenu.classList.remove('show');
             submenu.style.paddingTop = '';
         });
+    };
+
+    const resetHoverState = () => {
+        removeAllHighlights();
+        hideAllSubmenuPanels();
     };
 
     const sidebar = document.getElementById('sidebar');
@@ -57,12 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         item.addEventListener('mouseenter', () => {
             clearTimeout(hideTimer);
-            hideAll();
+            resetHoverState();
 
             if (navLink !== originallyActiveLink) {
                 navLink.classList.add('highlight');
-            } else {
-                navLink.classList.add('active');
             }
 
             const menuId = item.dataset.menu;
@@ -77,35 +76,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         item.addEventListener('mouseleave', () => {
-            hideTimer = setTimeout(hideAll, 200);
+            hideTimer = setTimeout(resetHoverState, 200);
         });
     });
 
     submenus.forEach(submenu => {
         submenu.addEventListener('mouseenter', () => {
             clearTimeout(hideTimer);
+            removeAllHighlights();
+
             const menuId = submenu.dataset.menu;
             const correspondingItem = document.querySelector(`.nav-item[data-menu="${menuId}"]`);
             if (correspondingItem) {
-                hideAll();
-
                 const mainLink = correspondingItem.querySelector('.nav-link');
                 if (mainLink !== originallyActiveLink) {
                     mainLink.classList.add('highlight');
-                } else {
-                    mainLink.classList.add('active');
                 }
             }
         });
         submenu.addEventListener('mouseleave', () => {
-            hideTimer = setTimeout(hideAll, 200);
+            hideTimer = setTimeout(resetHoverState, 200);
         });
     });
 
     if (sidebar) {
         sidebar.addEventListener('mouseleave', () => {
             setTimeout(() => {
-                removeAllHighlights();
+                resetHoverState();
 
                 if (originallyActiveLink) {
                     originallyActiveLink.classList.add('active');

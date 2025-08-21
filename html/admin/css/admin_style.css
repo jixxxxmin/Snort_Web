@@ -10,7 +10,7 @@ html, body {
 
 /* 사이드바 스타일 */
 #sidebar {
-    width: 20vw; /* 사이드바 너비를 화면 너비의 20%로 설정 */
+    width: 16vw; /* 사이드바 너비를 화면 너비의 20%로 설정 */
     background-color: #1C222F; /* 짙은 남색 배경 */
     color: #ffffff; /* 텍스트 색상 흰색 */
     padding: 20px 0; /* 상하 패딩 */

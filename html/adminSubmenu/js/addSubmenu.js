@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
 
-                    const apiUrl = `/adminsubmenu`;
+                    const apiUrl = `/admin/adminsubmenu`;
                     const formData = new URLSearchParams();
                     formData.append('submenu_name', submenuName);
                     formData.append('menu_id', menuId);

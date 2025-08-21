@@ -45,16 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
             submenu.classList.remove('show');
             submenu.style.paddingTop = '';
         });
-        // 서브메뉴가 숨겨질 때 원래 활성화된 링크를 다시 활성화
-        if (originallyActiveLink) {
-            document.querySelectorAll('#main-nav-list .nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            originallyActiveLink.classList.add('active');
-        }
     };
-    
-    // 이 부분을 수정했습니다.
+
     const sidebar = document.getElementById('sidebar');
 
     menuItems.forEach(item => {
@@ -63,16 +55,17 @@ document.addEventListener('DOMContentLoaded', () => {
         item.addEventListener('mouseenter', () => {
             clearTimeout(hideTimer);
             hideAll();
-            
+
             if (originallyActiveLink) {
                 originallyActiveLink.classList.remove('active');
             }
-            
-            navLink.classList.add('highlight');
-            if (navLink === originallyActiveLink) {
-                navLink.classList.remove('highlight');
+
+            if (navLink !== originallyActiveLink) {
+                navLink.classList.add('highlight');
+            } else {
+                navLink.classList.add('active');
             }
-            
+
             const menuId = item.dataset.menu;
             const targetSubmenu = document.querySelector(`.submenu[data-menu="${menuId}"]`);
             if (targetSubmenu) {
@@ -92,18 +85,21 @@ document.addEventListener('DOMContentLoaded', () => {
     submenus.forEach(submenu => {
         submenu.addEventListener('mouseenter', () => {
             clearTimeout(hideTimer);
-            removeAllHighlights(); // 다른 하이라이트 제거
-
             const menuId = submenu.dataset.menu;
             const correspondingItem = document.querySelector(`.nav-item[data-menu="${menuId}"]`);
-
-            // 서브메뉴에 해당하는 메인 메뉴에만 하이라이트 적용
             if (correspondingItem) {
+                removeAllHighlights();
+
                 const mainLink = correspondingItem.querySelector('.nav-link');
                 if (originallyActiveLink) {
                     originallyActiveLink.classList.remove('active');
                 }
-                mainLink.classList.add('highlight');
+
+                if (mainLink !== originallyActiveLink) {
+                    mainLink.classList.add('highlight');
+                } else {
+                    mainLink.classList.add('active');
+                }
             }
         });
         submenu.addEventListener('mouseleave', () => {
@@ -114,7 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sidebar) {
         sidebar.addEventListener('mouseleave', () => {
             setTimeout(() => {
-                hideAll();
+                if (originallyActiveLink) {
+                    document.querySelectorAll('#main-nav-list .nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    originallyActiveLink.classList.add('active');
+                }
             }, 250);
         });
     }

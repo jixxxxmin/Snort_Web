@@ -15,7 +15,10 @@ html, body {
     color: #ffffff;
     padding: 20px 0;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
     display: flex;
     flex-direction: column;
     height: 100vh;

@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkAndHideMenu = () => {
         if (!isMouseOverSidebar && !isMouseOverSubmenu) {
             hideAllInternal();
-            const currentlyActiveInMainMenu = document.querySelector('#main-nav-list .nav-link.active');
-            if (originallyActiveLink && !currentlyActiveInMainMenu) {
+            const anyActiveOrHighlight = document.querySelector('#main-nav-list .nav-link.active, #main-nav-list .nav-link.highlight');
+            if (originallyActiveLink && !anyActiveOrHighlight) {
                 originallyActiveLink.classList.add('active');
             }
         }
@@ -62,10 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             submenu.style.paddingTop = '';
         });
+        document.querySelectorAll('#main-nav-list .nav-link.active').forEach(link => {
+            if (link !== originallyActiveLink) {
+                link.classList.remove('active');
+            }
+        });
         document.querySelectorAll('#main-nav-list .nav-link.highlight').forEach(link => {
-             if (link !== originallyActiveLink) {
-                 link.classList.remove('highlight');
-             }
+             link.classList.remove('highlight');
         });
     };
 
@@ -88,21 +91,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         item.addEventListener('mouseenter', () => {
             clearTimeout(hideTimer);
+            
+            hideAllInternal();
 
-            document.querySelectorAll('#main-nav-list .nav-link').forEach(link => {
-                if (link.classList.contains('active') && link !== originallyActiveLink && link !== navLink) {
-                    link.classList.remove('active');
-                }
-                if (link.classList.contains('highlight')) {
-                    link.classList.remove('highlight');
-                }
-            });
-
-            if (originallyActiveLink && originallyActiveLink.classList.contains('active') && navLink !== originallyActiveLink) {
+            if (originallyActiveLink && originallyActiveLink.classList.contains('active')) {
                 originallyActiveLink.classList.remove('active');
             }
 
-            if (!navLink.classList.contains('active')) {
+            if (navLink === originallyActiveLink) {
+                navLink.classList.add('active'); 
+            } else {
                 navLink.classList.add('highlight');
             }
             
@@ -132,25 +130,20 @@ document.addEventListener('DOMContentLoaded', () => {
             isMouseOverSubmenu = true;
             clearTimeout(hideTimer);
             
-            document.querySelectorAll('#main-nav-list .nav-link').forEach(link => {
-                if (link.classList.contains('active') && link !== originallyActiveLink) {
-                    link.classList.remove('active');
-                }
-                if (link.classList.contains('highlight')) {
-                    link.classList.remove('highlight');
-                }
-            });
+            hideAllInternal();
+
+            if (originallyActiveLink && originallyActiveLink.classList.contains('active')) {
+                originallyActiveLink.classList.remove('active');
+            }
 
             const menuId = submenu.dataset.menu;
             const correspondingItem = document.querySelector(`.nav-item[data-menu="${menuId}"]`);
             if (correspondingItem) {
                 const mainLink = correspondingItem.querySelector('.nav-link');
 
-                if (originallyActiveLink && originallyActiveLink.classList.contains('active') && mainLink !== originallyActiveLink) {
-                    originallyActiveLink.classList.remove('active');
-                }
-
-                if (!mainLink.classList.contains('active')) {
+                if (mainLink === originallyActiveLink) {
+                    mainLink.classList.add('active');
+                } else {
                     mainLink.classList.add('highlight');
                 }
             }

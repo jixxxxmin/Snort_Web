@@ -1,6 +1,8 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('menubar.js script loaded and DOMContentLoaded event fired.');
+   
+    let originallyActiveLink = null;
+
     const setActiveLink = () => {
         const currentPath = window.location.pathname;
         const navLinks = document.querySelectorAll('#main-nav-list .nav-link');
@@ -31,6 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 dashboardLink.classList.add('active');
             }
         }
+
+        originallyActiveLink = document.querySelector('#main-nav-list .nav-link.active');
     };
     
     setActiveLink();
@@ -53,12 +57,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    const sidebar = document.getElementById('sidebar');
+
     menuItems.forEach(item => {
         const navLink = item.querySelector('.nav-link');
 
         item.addEventListener('mouseenter', () => {
             clearTimeout(hideTimer);
             hideAll();
+
+            if (originallyActiveLink && originallyActiveLink !== navLink) {
+                originallyActiveLink.classList.remove('active');
+            }
 
             if (!navLink.classList.contains('active')) {
                 navLink.classList.add('highlight');
@@ -89,6 +99,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 removeAllHighlights();
 
                 const mainLink = correspondingItem.querySelector('.nav-link');
+                if (originallyActiveLink && originallyActiveLink !== mainLink) {
+                    originallyActiveLink.classList.remove('active');
+                }
+
                 if (!mainLink.classList.contains('active')) {
                     mainLink.classList.add('highlight');
                 }
@@ -98,4 +112,14 @@ document.addEventListener('DOMContentLoaded', () => {
             hideTimer = setTimeout(hideAll, 200);
         });
     });
+
+    if (sidebar) {
+        sidebar.addEventListener('mouseleave', () => {
+            setTimeout(() => {
+                if (originallyActiveLink && !originallyActiveLink.classList.contains('active')) {
+                    originallyActiveLink.classList.add('active');
+                }
+            }, 250);
+        });
+    }
 });

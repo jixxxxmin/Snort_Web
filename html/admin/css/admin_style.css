@@ -75,7 +75,7 @@ html, body {
 
 /* 링크 호버 시 스타일 */
 .nav-link:hover:not(.active) {
-    background-color: #1b5e20; /* 호버 시 약간 더 진한 녹색 */
+    background-color: #2e7d32; /* 호버 시 약간 더 진한 녹색 */
     transform: translateY(-2px); /* 살짝 위로 이동하는 효과 */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
 }

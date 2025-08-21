@@ -28,11 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     setActiveLink();
-
     const menuItems = document.querySelectorAll('.has-submenu');
     const submenus = document.querySelectorAll('.submenu');
     let hideTimer;
-
+    
     const removeAllHighlights = () => {
         menuItems.forEach(item => {
             item.querySelector('.nav-link').classList.remove('highlight');
@@ -49,10 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     menuItems.forEach(item => {
         const navLink = item.querySelector('.nav-link');
+
         item.addEventListener('mouseenter', () => {
             clearTimeout(hideTimer);
             hideAllSubmenus();
-            
+
             if (!navLink.classList.contains('active')) {
                 navLink.classList.add('highlight');
             }
@@ -80,7 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const correspondingItem = document.querySelector(`.nav-item[data-menu="${menuId}"]`);
             if (correspondingItem) {
                 removeAllHighlights();
+
                 const mainLink = correspondingItem.querySelector('.nav-link');
+
                 if (!mainLink.classList.contains('active')) {
                     mainLink.classList.add('highlight');
                 }
@@ -90,24 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
             hideTimer = setTimeout(hideAllSubmenus, 200);
         });
     });
-
-    const sidebar = document.getElementById('sidebar');
-    let currentlyActiveMainMenu = document.querySelector('#main-nav-list .nav-link.active');
-
-    sidebar.addEventListener('mouseover', (e) => {
-        if (e.target.matches('.nav-link')) {
-            if (currentlyActiveMainMenu && currentlyActiveMainMenu !== e.target) {
-                currentlyActiveMainMenu.classList.remove('active');
-            }
-        }
-    });
-
-    sidebar.addEventListener('mouseleave', () => {
-        if (currentlyActiveMainMenu && !currentlyActiveMainMenu.classList.contains('active')) {
-            currentlyActiveMainMenu.classList.add('active');
-        }
-    });
-
     const navContainer = document.querySelector('.content-nav');
     
     if (navContainer) {
@@ -140,5 +124,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentlyActiveTab.classList.add('active');
             }
         });
+    }
+
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('adminSubmenu')) {
+        const menuManageItem = document.querySelector('.nav-item[data-menu="menu-manage"]');
+        const menuManageSubmenu = document.querySelector('.submenu[data-menu="menu-manage"]');
+
+        if (menuManageItem && menuManageSubmenu) {
+            const itemRect = menuManageItem.getBoundingClientRect();
+            menuManageSubmenu.style.paddingTop = `${itemRect.top}px`;
+            requestAnimationFrame(() => {
+                menuManageSubmenu.classList.add('show');
+            });
+        }
     }
 });

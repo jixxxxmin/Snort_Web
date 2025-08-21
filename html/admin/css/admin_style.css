@@ -77,6 +77,7 @@ html, body {
 .nav-link:hover:not(.active) {
     background-color: #2e7d32; /* 호버 시 약간 더 진한 녹색 */
     transform: translateY(-2px); /* 살짝 위로 이동하는 효과 */
+    font-weight: bold; /* 활성 상태일 때 텍스트 굵게 */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
 }
 

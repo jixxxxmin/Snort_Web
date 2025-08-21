@@ -1,10 +1,11 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const contentArea = document.getElementById('submenu-content-area');
     const tabLinks = document.querySelectorAll('.content-nav .tab-link');
-
     let currentTab = 'add'; 
 
     const messageArea = document.createElement('div');
+    messageArea.id = 'status-message';
     messageArea.style.cssText = `
         margin-top: 20px;
         padding: 10px;
@@ -20,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
         messageArea.style.backgroundColor = isSuccess ? '#e6ffe6' : '#ffe6e6';
         messageArea.style.color = isSuccess ? '#2e7d32' : '#d32f2f';
         messageArea.style.display = 'block';
-
         setTimeout(() => {
             messageArea.style.display = 'none';
             messageArea.textContent = '';
@@ -36,19 +36,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     <label for="add-menu-id">상위 메뉴 선택</label>
                     <select id="add-menu-id" name="menu_id" class="form-control" required>
                         <option value="" selected disabled>-- 필수로 선택해주세요 --</option>
-                        <option value="1">메뉴 구조 관리</option> <!-- 예시 ID, 실제 메뉴 ID로 변경 필요 -->
-                        <option value="2">게시글 관리</option> <!-- 예시 ID, 실제 메뉴 ID로 변경 필요 -->
-                        <option value="3">회원 관리</option> <!-- 예시 ID, 실제 메뉴 ID로 변경 필요 -->
+                        <option value="1">공식 배포 룰</option>
+                        <option value="2">비공식 배포 룰</option>
+                        <option value="3">자체 제작 룰</option>
                     </select>
                     <small id="menu-id-error" style="color: red; display: none; margin-top: 5px;">상위 메뉴를 선택해야 합니다.</small>
                 </div>
                 <div class="form-group">
                     <label for="add-submenu-name">서브메뉴 이름</label>
-                    <input type="text" id="add-submenu-name" name="submenu_name" class="form-control" placeholder="예: 공지사항" required>
+                    <input type="text" id="add-submenu-name" name="submenu_name" class="form-control" placeholder="-- 필수로 입력해주세요 --" required>
                 </div>
                 <div class="form-group">
                     <label for="add-descript">서브메뉴 설명</label>
-                    <input type="text" id="add-descript" name="descript" class="form-control" placeholder="예: 사이트의 주요 소식을 알립니다.">
+                    <input type="text" id="add-descript" name="descript" class="form-control" placeholder="">
                 </div>
                 <button type="submit" class="btn btn-primary">추가하기</button>
             </form>
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
 
-                    const apiUrl = `/admin/adminsubmenu`; 
+                    const apiUrl = `http://192.168.207.133/admin/create_submenu`;
                     const formData = new URLSearchParams();
                     formData.append('submenu_name', submenuName);
                     formData.append('menu_id', menuId);
@@ -110,29 +110,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
                             },
-                            body: formData.toString(),
-                            credentials: 'include'
+                            body: formData.toString()
                         });
 
-                        if (response.status === 201) {
+                        if (response.status === 200) {
                             if (window.showMessage) {
                                 window.showMessage('서브메뉴가 성공적으로 추가되었습니다!', true);
                             }
                             addForm.reset();
                             document.getElementById('add-menu-id').value = "";
-                        } else if (response.status === 302) {
-                             if (window.showMessage) {
-                                window.showMessage('인증이 필요합니다. 로그인 페이지로 리디렉션됩니다.', false);
-                            }
-                            console.warn('인증 필요: 302 리디렉션 발생', response.headers.get('Location'));
-                            window.location.href = response.headers.get('Location');
-                        } else if (response.status === 404) {
-                             if (window.showMessage) {
-                                window.showMessage('요청한 리소스를 찾을 수 없습니다 (404 Not Found).', false);
-                            }
-                            console.error('404 Not Found:', apiUrl);
-                        }
-                        else {
+                        } else {
                             if (window.showMessage) {
                                 window.showMessage(`서브메뉴 추가 실패: ${response.status} ${response.statusText}`, false);
                             }

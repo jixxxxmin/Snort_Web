@@ -8,26 +8,28 @@ document.addEventListener('DOMContentLoaded', () => {
             link.classList.remove('active'); 
         });
 
-        navLinks.forEach(link => {
-            const linkHref = link.getAttribute('href');
-            
-            if (!linkHref) {
-                const parentItem = link.closest('.has-submenu');
-                if (parentItem) {
-                    const menuId = parentItem.dataset.menu;
-                    if (currentPath.includes('adminSubmenu') && menuId === 'menu-manage') {
-                        link.classList.add('active');
-                    }
-                    if (currentPath.includes('adminArticle') && menuId === 'article-manage') {
-                        link.classList.add('active');
-                    }
-                }
-            } else {
-                if (currentPath === linkHref || (currentPath.endsWith('/') && linkHref.endsWith('/admin'))) {
-                    link.classList.add('active');
-                }
+        let activeLinkFound = false;
+
+        if (currentPath.includes('adminSubmenu')) {
+            const menuManageLink = document.querySelector('.nav-item[data-menu="menu-manage"] .nav-link');
+            if (menuManageLink) {
+                menuManageLink.classList.add('active');
+                activeLinkFound = true;
             }
-        });
+        } else if (currentPath.includes('adminArticle')) {
+            const articleManageLink = document.querySelector('.nav-item[data-menu="article-manage"] .nav-link');
+            if (articleManageLink) {
+                articleManageLink.classList.add('active');
+                activeLinkFound = true;
+            }
+        } 
+        
+        if (!activeLinkFound) {
+            const dashboardLink = document.querySelector('.nav-item a[href="/admin"]');
+            if (dashboardLink && (currentPath === '/admin' || currentPath === '/admin/')) {
+                dashboardLink.classList.add('active');
+            }
+        }
     };
     
     setActiveLink();
@@ -35,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuItems = document.querySelectorAll('.has-submenu');
     const submenus = document.querySelectorAll('.submenu');
     let hideTimer;
-    
+
     const removeAllHighlights = () => {
         menuItems.forEach(item => {
             item.querySelector('.nav-link').classList.remove('highlight');
@@ -56,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         item.addEventListener('mouseenter', () => {
             clearTimeout(hideTimer);
             hideAll();
-            
+
             if (!navLink.classList.contains('active')) {
                 navLink.classList.add('highlight');
             }

@@ -5,7 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const navLinks = document.querySelectorAll('#main-nav-list .nav-link');
 
         navLinks.forEach(link => {
-            link.classList.remove('active');
+            link.classList.remove('active'); 
+        });
+
+        navLinks.forEach(link => {
             const linkHref = link.getAttribute('href');
             
             if (!linkHref) {
@@ -32,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuItems = document.querySelectorAll('.has-submenu');
     const submenus = document.querySelectorAll('.submenu');
     let hideTimer;
-
+    
     const removeAllHighlights = () => {
         menuItems.forEach(item => {
             item.querySelector('.nav-link').classList.remove('highlight');
@@ -53,17 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
         item.addEventListener('mouseenter', () => {
             clearTimeout(hideTimer);
             hideAll();
-
-            navLink.classList.add('highlight');
-
+            
+            if (!navLink.classList.contains('active')) {
+                navLink.classList.add('highlight');
+            }
+            
             const menuId = item.dataset.menu;
             const targetSubmenu = document.querySelector(`.submenu[data-menu="${menuId}"]`);
-            
             if (targetSubmenu) {
                 const itemRect = item.getBoundingClientRect();
-                
                 targetSubmenu.style.paddingTop = `${itemRect.top}px`;
-
                 requestAnimationFrame(() => {
                     targetSubmenu.classList.add('show');
                 });
@@ -82,64 +84,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const correspondingItem = document.querySelector(`.nav-item[data-menu="${menuId}"]`);
             if (correspondingItem) {
                 removeAllHighlights();
-                correspondingItem.querySelector('.nav-link').classList.add('highlight');
+
+                const mainLink = correspondingItem.querySelector('.nav-link');
+                if (!mainLink.classList.contains('active')) {
+                    mainLink.classList.add('highlight');
+                }
             }
         });
-
         submenu.addEventListener('mouseleave', () => {
             hideTimer = setTimeout(hideAll, 200);
         });
     });
-
-    const sidebar = document.getElementById('sidebar');
-    let currentlyActiveMainMenu = document.querySelector('#main-nav-list .nav-link.active');
-
-    sidebar.addEventListener('mouseover', (e) => {
-        if (e.target.matches('.nav-link')) {
-            currentlyActiveMainMenu = document.querySelector('#main-nav-list .nav-link.active');
-            if (currentlyActiveMainMenu && currentlyActiveMainMenu !== e.target) {
-                currentlyActiveMainMenu.classList.remove('active');
-            }
-        }
-    });
-
-    sidebar.addEventListener('mouseleave', () => {
-        if (currentlyActiveMainMenu && !currentlyActiveMainMenu.classList.contains('active')) {
-            currentlyActiveMainMenu.classList.add('active');
-        }
-    });
-
-    const navContainer = document.querySelector('.content-nav');
-    
-    if (navContainer) {
-        const tabLinks = navContainer.querySelectorAll('.tab-link');
-        let currentlyActiveTab = navContainer.querySelector('.tab-link.active');
-
-        tabLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault(); 
-
-                if (currentlyActiveTab) {
-                    currentlyActiveTab.classList.remove('active');
-                }
-                
-                this.classList.add('active');
-                currentlyActiveTab = this;
-            });
-        });
-
-        navContainer.addEventListener('mouseover', function(e) {
-            if (e.target.matches('.tab-link')) {
-                if (currentlyActiveTab && currentlyActiveTab !== e.target) {
-                    currentlyActiveTab.classList.remove('active');
-                }
-            }
-        });
-
-        navContainer.addEventListener('mouseleave', function() {
-            if (currentlyActiveTab && !currentlyActiveTab.classList.contains('active')) {
-                currentlyActiveTab.classList.add('active');
-            }
-        });
-    }
 });

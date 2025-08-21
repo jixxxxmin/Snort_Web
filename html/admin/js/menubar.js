@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     let originallyActiveLink = null;
     let isMouseOverSidebar = false; // 사이드바 위에 마우스가 있는지 추적하는 변수
@@ -48,12 +47,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    const hideAll = () => {
+    // 마우스가 메뉴 영역을 완전히 벗어났는지 확인 후 메뉴를 숨기는 함수
+    const checkAndHideMenu = () => {
+        // 마우스가 사이드바 위에도, 서브메뉴 위에도 없을 때만 숨김 처리
+        if (!isMouseOverSidebar && !isMouseOverSubmenu) {
+            hideAllInternal(); // 실제 숨김 로직 호출
+        } else {
+            console.log(`[checkAndHideMenu] 마우스가 메뉴 영역 위에 있으므로 숨기지 않음.`);
+        }
+    };
+
+    // 실제 메뉴 숨김 및 활성 링크 복원 로직
+    const hideAllInternal = () => {
         removeAllHighlights();
         submenus.forEach(submenu => {
             if (submenu.classList.contains('show')) {
                 submenu.classList.remove('show');
-                console.log(`[hideAll] 서브메뉴 "${submenu.dataset.menu}" 숨김.`);
+                console.log(`[hideAllInternal] 서브메뉴 "${submenu.dataset.menu}" 숨김.`);
             }
             submenu.style.paddingTop = '';
         });
@@ -61,20 +71,19 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('#main-nav-list .nav-link.highlight').forEach(link => {
              if (link !== originallyActiveLink) {
                 link.classList.remove('highlight');
-                console.log(`[hideAll - Cleanup] "${link.textContent.trim()}"에서 남은 'highlight' 클래스 제거됨.`);
+                console.log(`[hideAllInternal - Cleanup] "${link.textContent.trim()}"에서 남은 'highlight' 클래스 제거됨.`);
              }
         });
 
-        // hideAll이 완료되면 원래 활성 링크 복원 타이머 시작
-        // 마우스가 사이드바를 완전히 벗어났을 때만 복원 로직 실행
-        if (!isMouseOverSidebar && originallyActiveLink && !originallyActiveLink.classList.contains('active')) {
+        // 마우스가 사이드바나 서브메뉴 위에 없을 때만 원래 활성 링크 복원 시도
+        if (!isMouseOverSidebar && !isMouseOverSubmenu && originallyActiveLink && !originallyActiveLink.classList.contains('active')) {
              clearTimeout(restoreActiveTimer); // 기존 복원 타이머가 있다면 취소
              restoreActiveTimer = setTimeout(() => {
                 // 현재 active 클래스를 가진 링크가 없고, originallyActiveLink가 있다면 복원
                 const currentlyActive = document.querySelector('#main-nav-list .nav-link.active');
                 if (!currentlyActive) {
                     originallyActiveLink.classList.add('active');
-                    console.log(`[hideAll - Restore] "${originallyActiveLink.textContent.trim()}"에 'active' 클래스 다시 추가됨.`);
+                    console.log(`[hideAllInternal - Restore] "${originallyActiveLink.textContent.trim()}"에 'active' 클래스 다시 추가됨.`);
                 }
              }, 50); // 짧은 지연 후 복원 시도
         }
@@ -85,18 +94,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sidebar) {
         sidebar.addEventListener('mouseenter', () => {
             isMouseOverSidebar = true;
-            clearTimeout(restoreActiveTimer); // 사이드바에 들어오면 복원 타이머 취소
+            clearTimeout(hideTimer); // 숨김 타이머 초기화
+            clearTimeout(restoreActiveTimer); // 복원 타이머 초기화
             console.log(`[sidebar] 마우스 사이드바 진입. isMouseOverSidebar: ${isMouseOverSidebar}`);
         });
 
         sidebar.addEventListener('mouseleave', () => {
             isMouseOverSidebar = false;
-            console.log(`[sidebar] 마우스 사이드바 이탈. isMouseOverSidebar: ${isMouseOverSidebar}. ${250}ms 후 활성 링크 복원 시도.`);
-            // 사이드바를 떠날 때, hideAll이 이미 트리거되었다면 거기서 복원 로직을 처리.
-            // 여기서는 단순히 isMouseOverSidebar 상태만 업데이트.
-            // 실제 복원은 hideAll의 끝에서 또는 마우스가 완전히 벗어났을 때 처리.
-            clearTimeout(hideTimer); // 모든 메뉴/서브메뉴 숨김 타이머가 있다면 즉시 실행
-            hideAll(); // 즉시 모든 하이라이트/서브메뉴 숨김
+            console.log(`[sidebar] 마우스 사이드바 이탈. isMouseOverSidebar: ${isMouseOverSidebar}. ${200}ms 후 메뉴 숨김 확인 시작.`);
+            // 사이드바를 떠날 때, 200ms 후 마우스 위치를 다시 확인하여 메뉴 숨김 여부 결정
+            hideTimer = setTimeout(checkAndHideMenu, 200);
         });
     }
 
@@ -148,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         item.addEventListener('mouseleave', () => {
             console.log(`[mouseleave] 메뉴 아이템 "${navLink.textContent.trim()}"에서 마우스 이탈. ${200}ms 후 숨김 시작.`);
-            hideTimer = setTimeout(hideAll, 200); // 200ms 후 hideAll 호출
+            hideTimer = setTimeout(checkAndHideMenu, 200); // 200ms 후 checkAndHideMenu 호출
         });
     });
 
@@ -194,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submenu.addEventListener('mouseleave', () => {
             console.log(`[mouseleave] 서브메뉴 "${submenu.dataset.menu}"에서 마우스 이탈. ${200}ms 후 숨김 시작.`);
             isMouseOverSubmenu = false;
-            hideTimer = setTimeout(hideAll, 200); // 200ms 후 hideAll 호출
+            hideTimer = setTimeout(checkAndHideMenu, 200); // 200ms 후 checkAndHideMenu 호출
         });
     });
 });

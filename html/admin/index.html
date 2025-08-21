@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -6,8 +7,8 @@
         <title>Admin DashBoard</title>
         <link rel="stylesheet" href="./css/admin_style.css">
     </head>
-
     <body>
+        <script src="./js/dashBoardSubmenu.js"></script>
         <script src="./js/dashBoard.js"></script>
         
         <div id="sidebar">
@@ -17,14 +18,26 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="/admin"> DashBoard </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/adminSubmenu"> 메뉴 구조 관리 </a>
+                    <li class="nav-item has-submenu" data-menu="menu-manage">
+                        <a class="nav-link" href="#"> 메뉴 구조 관리 </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/adminArticle"> 게시글 관리 </a>
+                    <li class="nav-item has-submenu" data-menu="article-manage">
+                        <a class="nav-link" href="#"> 게시글 관리 </a>
                     </li>
                 </ul>
             </div>
+        </div>
+
+        <div id="submenu-container">
+            <ul class="submenu" data-menu="menu-manage">
+                <li><a href="/adminSubmenu/add">서브메뉴 추가</a></li>
+                <li><a href="/adminSubmenu/delete">서브메뉴 삭제</a></li>
+                <li><a href="/adminSubmenu/edit">서브메뉴 수정</a></li>
+            </ul>
+            <ul class="submenu" data-menu="article-manage">
+                <li><a href="/adminArticle/test1">게시글 Test 1</a></li>
+                <li><a href="/adminArticle/test2">게시글 Test 2</a></li>
+            </ul>
         </div>
     </body>
 </html>

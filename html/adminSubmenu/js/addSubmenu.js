@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             body: formData.toString()
                         });
 
-                        if (response.status === 200) {
+                        if (response.status === 201) {
                             if (window.showMessage) {
                                 window.showMessage('서브메뉴가 성공적으로 추가되었습니다!', true);
                             }

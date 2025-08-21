@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuItems = document.querySelectorAll('.has-submenu');
     const submenus = document.querySelectorAll('.submenu');
     let hideTimer;
-    let restoreActiveTimer;
 
     const removeAllHighlights = () => {
         menuItems.forEach(item => {
@@ -48,6 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkAndHideMenu = () => {
         if (!isMouseOverSidebar && !isMouseOverSubmenu) {
             hideAllInternal();
+            const currentlyActive = document.querySelector('#main-nav-list .nav-link.active');
+            if (originallyActiveLink && !currentlyActive) {
+                originallyActiveLink.classList.add('active');
+            }
         }
     };
 
@@ -64,16 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
                  link.classList.remove('highlight');
              }
         });
-
-        if (!isMouseOverSidebar && !isMouseOverSubmenu && originallyActiveLink && !originallyActiveLink.classList.contains('active')) {
-             clearTimeout(restoreActiveTimer);
-             restoreActiveTimer = setTimeout(() => {
-                 const currentlyActive = document.querySelector('#main-nav-list .nav-link.active');
-                 if (!currentlyActive) {
-                     originallyActiveLink.classList.add('active');
-                 }
-             }, 50);
-        }
     };
 
     const sidebar = document.getElementById('sidebar');
@@ -82,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebar.addEventListener('mouseenter', () => {
             isMouseOverSidebar = true;
             clearTimeout(hideTimer);
-            clearTimeout(restoreActiveTimer);
         });
 
         sidebar.addEventListener('mouseleave', () => {
@@ -96,10 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         item.addEventListener('mouseenter', () => {
             clearTimeout(hideTimer);
-            clearTimeout(restoreActiveTimer);
 
             document.querySelectorAll('#main-nav-list .nav-link').forEach(link => {
-                if (link !== originallyActiveLink && link.classList.contains('active')) {
+                if (link.classList.contains('active') && link !== originallyActiveLink && link !== navLink) {
                     link.classList.remove('active');
                 }
                 if (link.classList.contains('highlight')) {
@@ -107,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            if (originallyActiveLink && originallyActiveLink.classList.contains('active')) {
+            if (originallyActiveLink && originallyActiveLink.classList.contains('active') && navLink !== originallyActiveLink) {
                 originallyActiveLink.classList.remove('active');
             }
 
@@ -123,6 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const itemRect = item.getBoundingClientRect();
                 targetSubmenu.style.paddingTop = `${itemRect.top}px`;
                 requestAnimationFrame(() => {
+                    submenus.forEach(sub => {
+                        if (sub !== targetSubmenu && sub.classList.contains('show')) {
+                            sub.classList.remove('show');
+                        }
+                    });
                     targetSubmenu.classList.add('show');
                 });
             }
@@ -137,10 +133,9 @@ document.addEventListener('DOMContentLoaded', () => {
         submenu.addEventListener('mouseenter', () => {
             isMouseOverSubmenu = true;
             clearTimeout(hideTimer);
-            clearTimeout(restoreActiveTimer);
             
             document.querySelectorAll('#main-nav-list .nav-link').forEach(link => {
-                if (link !== originallyActiveLink && link.classList.contains('active')) {
+                if (link.classList.contains('active') && link !== originallyActiveLink) {
                     link.classList.remove('active');
                 }
                 if (link.classList.contains('highlight')) {
@@ -153,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (correspondingItem) {
                 const mainLink = correspondingItem.querySelector('.nav-link');
 
-                if (originallyActiveLink && originallyActiveLink.classList.contains('active')) {
+                if (originallyActiveLink && originallyActiveLink.classList.contains('active') && mainLink !== originallyActiveLink) {
                     originallyActiveLink.classList.remove('active');
                 }
 

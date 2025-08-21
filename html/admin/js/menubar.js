@@ -41,6 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const hideAll = () => {
         removeAllHighlights();
+        document.querySelectorAll('#main-nav-list .nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
         submenus.forEach(submenu => {
             submenu.classList.remove('show');
             submenu.style.paddingTop = '';
@@ -56,11 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
             clearTimeout(hideTimer);
             hideAll();
 
-            if (originallyActiveLink) {
-                originallyActiveLink.classList.remove('active');
+            if (navLink !== originallyActiveLink) {
+                navLink.classList.add('highlight');
+            } else {
+                navLink.classList.add('active');
             }
-
-            navLink.classList.add('highlight');
 
             const menuId = item.dataset.menu;
             const targetSubmenu = document.querySelector(`.submenu[data-menu="${menuId}"]`);
@@ -84,14 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const menuId = submenu.dataset.menu;
             const correspondingItem = document.querySelector(`.nav-item[data-menu="${menuId}"]`);
             if (correspondingItem) {
-                removeAllHighlights();
+                hideAll();
 
                 const mainLink = correspondingItem.querySelector('.nav-link');
-                if (originallyActiveLink) {
-                    originallyActiveLink.classList.remove('active');
+                if (mainLink !== originallyActiveLink) {
+                    mainLink.classList.add('highlight');
+                } else {
+                    mainLink.classList.add('active');
                 }
-
-                mainLink.classList.add('highlight');
             }
         });
         submenu.addEventListener('mouseleave', () => {

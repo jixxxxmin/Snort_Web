@@ -147,6 +147,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         }
+        else if (tabId === 'delete') {
+            const deleteForm = document.getElementById('deleteSubmenuForm');
+            if (deleteForm) {
+                fetchSubmenus();
+
+                deleteForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const submenuId = document.getElementById('delete-submenu-id').value;
+
+                    if (!submenuId) {
+                        window.showMessage('삭제할 서브메뉴를 선택해야 합니다.', false);
+                        return;
+                    }
+
+                    const apiUrl = `/admin/adminsubmenu`;
+                    const formData = new URLSearchParams();
+                    formData.append('submenu_id', submenuId);
+                    formData.append('action', 'delete');
+
+                    try {
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: formData.toString()
+                        });
+
+                        if (response.status === 200) {
+                            window.showMessage('서브메뉴가 성공적으로 삭제되었습니다.', true);
+                            deleteForm.reset();
+                            fetchSubmenus();
+                        } else {
+                            window.showMessage(`삭제 실패: ${response.status} ${response.statusText}`, false);
+                        }
+                    } catch (error) {
+                        console.error('API 호출 중 오류 발생:', error);
+                        window.showMessage('API 호출 중 오류가 발생했습니다.', false);
+                    }
+                });
+            }
+        }
         if (messageArea) {
             messageArea.style.display = 'none';
             messageArea.textContent = '';

@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <label for="delete-submenu-id">서브메뉴 선택</label>
                     <select id="delete-submenu-id" name="submenu_id" class="form-control" required>
                         <option value="" selected disabled>-- 삭제할 서브메뉴를 선택하세요 --</option>
-                        </select>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-danger">삭제하기</button>
             </form>
@@ -82,31 +82,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (addForm) {
                 addForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
-
                     const menuId = document.getElementById('add-menu-id').value;
                     const submenuName = document.getElementById('add-submenu-name').value;
                     const descript = document.getElementById('add-descript').value;
 
                     if (!menuId) {
                         const menuIdError = document.getElementById('menu-id-error');
-                        if (menuIdError) {
-                            menuIdError.style.display = 'block';
-                        }
-                        if (window.showMessage) {
-                            window.showMessage('상위 메뉴를 선택해야 합니다.', false);
-                        }
+                        if (menuIdError) menuIdError.style.display = 'block';
+                        window.showMessage('상위 메뉴를 선택해야 합니다.', false);
                         return;
                     } else {
                         const menuIdError = document.getElementById('menu-id-error');
-                        if (menuIdError) {
-                            menuIdError.style.display = 'none';
-                        }
+                        if (menuIdError) menuIdError.style.display = 'none';
                     }
 
                     if (!submenuName.trim()) {
-                        if (window.showMessage) {
-                            window.showMessage('서브메뉴 이름을 입력해주세요.', false);
-                        }
+                        window.showMessage('서브메뉴 이름을 입력해주세요.', false);
                         return;
                     }
 
@@ -120,34 +111,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     try {
                         const response = await fetch(apiUrl, {
                             method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded'
-                            },
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                             body: formData.toString()
                         });
-
+                        
                         if (response.status === 201) {
-                            if (window.showMessage) {
-                                window.showMessage('서브메뉴가 성공적으로 추가되었습니다!', true);
-                            }
+                            window.showMessage('서브메뉴가 성공적으로 추가되었습니다!', true);
                             addForm.reset();
                             document.getElementById('add-menu-id').value = "";
                         } else {
-                            if (window.showMessage) {
-                                window.showMessage(`서브메뉴 추가 실패: ${response.status} ${response.statusText}`, false);
-                            }
+                            window.showMessage(`서브메뉴 추가 실패: ${response.status} ${response.statusText}`, false);
                             console.error('서브메뉴 추가 실패:', response.status, response.statusText);
                         }
                     } catch (error) {
                         console.error('API 호출 중 오류 발생:', error);
-                        if (window.showMessage) {
-                            window.showMessage('API 호출 중 오류가 발생했습니다.', false);
-                        }
+                        window.showMessage('API 호출 중 오류가 발생했습니다.', false);
                     }
                 });
             }
-        }
-        else if (tabId === 'delete') {
+        } else if (tabId === 'delete') {
             const deleteForm = document.getElementById('deleteSubmenuForm');
             if (deleteForm) {
                 fetchSubmenus();
@@ -169,9 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     try {
                         const response = await fetch(apiUrl, {
                             method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded'
-                            },
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                             body: formData.toString()
                         });
 
@@ -189,9 +169,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         }
+        
         if (messageArea) {
             messageArea.style.display = 'none';
             messageArea.textContent = '';
+        }
+    };
+
+    const fetchSubmenus = async () => {
+        const selectElement = document.getElementById('delete-submenu-id');
+        if (!selectElement) return;
+        
+        selectElement.innerHTML = `<option value="" selected disabled>-- 서브메뉴 목록을 불러오는 중... --</option>`;
+
+        try {
+            const response = await fetch('/admin/adminsubmenu');
+            const submenus = await response.json();
+
+            selectElement.innerHTML = `<option value="" selected disabled>-- 삭제할 서브메뉴를 선택하세요 --</option>`;
+            submenus.forEach(submenu => {
+                const option = document.createElement('option');
+                option.value = submenu.id;
+                option.textContent = submenu.name;
+                selectElement.appendChild(option);
+            });
+        } catch (error) {
+            console.error('서브메뉴 목록을 불러오는 데 실패했습니다:', error);
+            selectElement.innerHTML = `<option value="" selected disabled>-- 서브메뉴 목록을 불러오는 데 실패했습니다 --</option>`;
         }
     };
 
@@ -199,31 +203,26 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const tabId = e.target.dataset.tab;
-            if (tabId === 'add' && currentTab !== tabId) {
+            if (currentTab !== tabId) {
                 currentTab = tabId;
                 const newUrl = `${window.location.pathname}?submenu=${tabId}`;
                 history.pushState({tab: tabId}, '', newUrl);
                 showTab(tabId);
-            } else if (tabId !== 'add') {
-                if (window.showMessage) {
-                    window.showMessage('현재는 서브메뉴 추가 기능만 활성화되어 있습니다.', false);
-                }
             }
         });
     });
 
-    window.addEventListener('popstate', (event) => {
+    window.addEventListener('popstate', () => {
         const params = new URLSearchParams(window.location.search);
         const tabFromUrl = params.get('submenu') || 'add';
-        if (currentTab !== tabFromUrl && tabFromUrl === 'add') {
+        if (currentTab !== tabFromUrl) {
             currentTab = tabFromUrl;
-            showTab(currentTab);
-        } else if (tabFromUrl !== 'add') {
-            history.replaceState({tab: 'add'}, '', `${window.location.pathname}?submenu=add`);
-            currentTab = 'add';
             showTab(currentTab);
         }
     });
 
+    const params = new URLSearchParams(window.location.search);
+    const initialTab = params.get('submenu') || 'add';
+    currentTab = initialTab;
     showTab(currentTab);
 });

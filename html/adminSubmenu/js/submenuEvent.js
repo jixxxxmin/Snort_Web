@@ -163,16 +163,39 @@ document.addEventListener('DOMContentLoaded', () => {
         selectElement.innerHTML = `<option value="" selected disabled>-- 서브메뉴 목록을 불러오는 중... --</option>`;
 
         try {
-            const response = await fetch('/admin/adminsubmenu');
-            const submenus = await response.json();
+            const response = await fetch('http://192.168.207.134/admin/admingetmenu');
+            const data = await response.json();
 
             selectElement.innerHTML = `<option value="" selected disabled>-- 삭제할 서브메뉴를 선택하세요 --</option>`;
-            submenus.forEach(submenu => {
-                const option = document.createElement('option');
-                option.value = submenu.id;
-                option.textContent = submenu.name;
-                selectElement.appendChild(option);
+
+            if (data.length === 0) {
+                const noOptions = document.createElement('option');
+                noOptions.textContent = '-- 서브메뉴가 존재하지 않습니다 --';
+                noOptions.disabled = true;
+                selectElement.appendChild(noOptions);
+                return;
+            }
+
+            data.forEach(menu => {
+                const optgroup = document.createElement('optgroup');
+                optgroup.label = menu.menu_name;
+
+                if (menu.submenu && menu.submenu.length > 0) {
+                    menu.submenu.forEach(submenu => {
+                        const option = document.createElement('option');
+                        option.value = submenu.sub_id;
+                        option.textContent = `- ${submenu.sub_name}`;
+                        optgroup.appendChild(option);
+                    });
+                } else {
+                    const noSubmenuOption = document.createElement('option');
+                    noSubmenuOption.textContent = `- ${menu.menu_name} (서브메뉴 없음)`;
+                    noSubmenuOption.disabled = true;
+                    optgroup.appendChild(noSubmenuOption);
+                }
+                selectElement.appendChild(optgroup);
             });
+
         } catch (error) {
             console.error('서브메뉴 목록을 불러오는 데 실패했습니다:', error);
             selectElement.innerHTML = `<option value="" selected disabled>-- 서브메뉴 목록을 불러오는 데 실패했습니다 --</option>`;

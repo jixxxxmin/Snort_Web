@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         position: fixed;
         bottom: 20px;
         right: 20px;
-        width: 300px;
+        width: 600px;
         max-width: 90%;
         padding: 10px 20px;
         border-radius: 8px;

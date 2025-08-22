@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const contentArea = document.getElementById('submenu-content-area');
     const tabLinks = document.querySelectorAll('.content-nav .tab-link');
-    let currentTab = 'add'; 
+    let currentTab = 'add';
 
     const messageArea = document.createElement('div');
     messageArea.id = 'status-message';
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         border-radius: 8px;
         font-weight: bold;
         text-align: center;
-        display: none; /* 초기에는 숨김 */
+        display: none;
     `;
     document.getElementById('main-content').appendChild(messageArea);
 
@@ -68,118 +68,93 @@ document.addEventListener('DOMContentLoaded', () => {
         `
     };
 
-    const showTab = (tabId) => {
-        tabLinks.forEach(link => link.classList.remove('active'));
-        const activeTabLink = document.querySelector(`.tab-link[data-tab="${tabId}"]`);
-        if (activeTabLink) {
-            activeTabLink.classList.add('active');
+    // 'add' 탭 폼 제출을 위한 함수
+    const submitAddForm = async (addForm) => {
+        const menuId = document.getElementById('add-menu-id').value;
+        const submenuName = document.getElementById('add-submenu-name').value;
+        const descript = document.getElementById('add-descript').value;
+
+        if (!menuId) {
+            const menuIdError = document.getElementById('menu-id-error');
+            if (menuIdError) menuIdError.style.display = 'block';
+            window.showMessage('상위 메뉴를 선택해야 합니다.', false);
+            return;
+        } else {
+            const menuIdError = document.getElementById('menu-id-error');
+            if (menuIdError) menuIdError.style.display = 'none';
         }
 
-        contentArea.innerHTML = contentMap[tabId] || '<h2>콘텐츠 없음</h2>';
+        if (!submenuName.trim()) {
+            window.showMessage('서브메뉴 이름을 입력해주세요.', false);
+            return;
+        }
 
-        if (tabId === 'add') {
-            const addForm = document.getElementById('addSubmenuForm');
-            if (addForm) {
-                addForm.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    const menuId = document.getElementById('add-menu-id').value;
-                    const submenuName = document.getElementById('add-submenu-name').value;
-                    const descript = document.getElementById('add-descript').value;
+        const apiUrl = `/admin/adminsubmenu`;
+        const formData = new URLSearchParams();
+        formData.append('submenu_name', submenuName);
+        formData.append('menu_id', menuId);
+        formData.append('descript', descript);
+        formData.append('action', 'add');
 
-                    if (!menuId) {
-                        const menuIdError = document.getElementById('menu-id-error');
-                        if (menuIdError) menuIdError.style.display = 'block';
-                        window.showMessage('상위 메뉴를 선택해야 합니다.', false);
-                        return;
-                    } else {
-                        const menuIdError = document.getElementById('menu-id-error');
-                        if (menuIdError) menuIdError.style.display = 'none';
-                    }
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formData.toString()
+            });
 
-                    if (!submenuName.trim()) {
-                        window.showMessage('서브메뉴 이름을 입력해주세요.', false);
-                        return;
-                    }
-
-                    const apiUrl = `/admin/adminsubmenu`;
-                    const formData = new URLSearchParams();
-                    formData.append('submenu_name', submenuName);
-                    formData.append('menu_id', menuId);
-                    formData.append('descript', descript);
-                    formData.append('action', 'add');
-
-                    try {
-                        const response = await fetch(apiUrl, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            body: formData.toString()
-                        });
-                        
-                        if (response.status === 201) {
-                            window.showMessage('서브메뉴가 성공적으로 추가되었습니다!', true);
-                            addForm.reset();
-                            document.getElementById('add-menu-id').value = "";
-                        } else {
-                            window.showMessage(`서브메뉴 추가 실패: ${response.status} ${response.statusText}`, false);
-                            console.error('서브메뉴 추가 실패:', response.status, response.statusText);
-                        }
-                    } catch (error) {
-                        console.error('API 호출 중 오류 발생:', error);
-                        window.showMessage('API 호출 중 오류가 발생했습니다.', false);
-                    }
-                });
+            if (response.status === 201) {
+                window.showMessage('서브메뉴가 성공적으로 추가되었습니다!', true);
+                addForm.reset();
+                document.getElementById('add-menu-id').value = "";
+            } else {
+                window.showMessage(`서브메뉴 추가 실패: ${response.status} ${response.statusText}`, false);
+                console.error('서브메뉴 추가 실패:', response.status, response.statusText);
             }
-        } else if (tabId === 'delete') {
-            const deleteForm = document.getElementById('deleteSubmenuForm');
-            if (deleteForm) {
+        } catch (error) {
+            console.error('API 호출 중 오류 발생:', error);
+            window.showMessage('API 호출 중 오류가 발생했습니다.', false);
+        }
+    };
+
+    // 'delete' 탭 폼 제출을 위한 함수
+    const submitDeleteForm = async (deleteForm) => {
+        const submenuId = document.getElementById('delete-submenu-id').value;
+
+        if (!submenuId) {
+            window.showMessage('삭제할 서브메뉴를 선택해야 합니다.', false);
+            return;
+        }
+
+        const apiUrl = `/admin/adminsubmenu`;
+        const formData = new URLSearchParams();
+        formData.append('submenu_id', submenuId);
+        formData.append('action', 'delete');
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formData.toString()
+            });
+
+            if (response.status === 200) {
+                window.showMessage('서브메뉴가 성공적으로 삭제되었습니다.', true);
+                deleteForm.reset();
                 fetchSubmenus();
-
-                deleteForm.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    const submenuId = document.getElementById('delete-submenu-id').value;
-
-                    if (!submenuId) {
-                        window.showMessage('삭제할 서브메뉴를 선택해야 합니다.', false);
-                        return;
-                    }
-
-                    const apiUrl = `/admin/adminsubmenu`;
-                    const formData = new URLSearchParams();
-                    formData.append('submenu_id', submenuId);
-                    formData.append('action', 'delete');
-
-                    try {
-                        const response = await fetch(apiUrl, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            body: formData.toString()
-                        });
-
-                        if (response.status === 200) {
-                            window.showMessage('서브메뉴가 성공적으로 삭제되었습니다.', true);
-                            deleteForm.reset();
-                            fetchSubmenus();
-                        } else {
-                            window.showMessage(`삭제 실패: ${response.status} ${response.statusText}`, false);
-                        }
-                    } catch (error) {
-                        console.error('API 호출 중 오류 발생:', error);
-                        window.showMessage('API 호출 중 오류가 발생했습니다.', false);
-                    }
-                });
+            } else {
+                window.showMessage(`삭제 실패: ${response.status} ${response.statusText}`, false);
             }
-        }
-        
-        if (messageArea) {
-            messageArea.style.display = 'none';
-            messageArea.textContent = '';
+        } catch (error) {
+            console.error('API 호출 중 오류 발생:', error);
+            window.showMessage('API 호출 중 오류가 발생했습니다.', false);
         }
     };
 
     const fetchSubmenus = async () => {
         const selectElement = document.getElementById('delete-submenu-id');
         if (!selectElement) return;
-        
+
         selectElement.innerHTML = `<option value="" selected disabled>-- 서브메뉴 목록을 불러오는 중... --</option>`;
 
         try {
@@ -196,6 +171,40 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('서브메뉴 목록을 불러오는 데 실패했습니다:', error);
             selectElement.innerHTML = `<option value="" selected disabled>-- 서브메뉴 목록을 불러오는 데 실패했습니다 --</option>`;
+        }
+    };
+
+    const showTab = (tabId) => {
+        tabLinks.forEach(link => link.classList.remove('active'));
+        const activeTabLink = document.querySelector(`.tab-link[data-tab="${tabId}"]`);
+        if (activeTabLink) {
+            activeTabLink.classList.add('active');
+        }
+
+        contentArea.innerHTML = contentMap[tabId] || '<h2>콘텐츠 없음</h2>';
+
+        if (tabId === 'add') {
+            const addForm = document.getElementById('addSubmenuForm');
+            if (addForm) {
+                addForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    submitAddForm(addForm);
+                });
+            }
+        } else if (tabId === 'delete') {
+            const deleteForm = document.getElementById('deleteSubmenuForm');
+            if (deleteForm) {
+                fetchSubmenus();
+                deleteForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    submitDeleteForm(deleteForm);
+                });
+            }
+        }
+        
+        if (messageArea) {
+            messageArea.style.display = 'none';
+            messageArea.textContent = '';
         }
     };
 

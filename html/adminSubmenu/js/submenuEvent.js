@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
         font-weight: bold;
         text-align: center;
         display: none;
-        width: 100%;
-        box-sizing: border-box;
+        max-width: 700px;
+        margin: 0 auto;
     `;
     document.getElementById('main-content').appendChild(messageArea);
 

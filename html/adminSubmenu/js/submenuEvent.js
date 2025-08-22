@@ -1,6 +1,5 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-    const contentArea = document.getElementById('submenu-content-area');
     const tabLinks = document.querySelectorAll('.content-nav .tab-link');
     let currentTab = 'add';
 
@@ -12,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         border-radius: 8px;
         font-weight: bold;
         text-align: center;
-        display: none; /* 초기에는 숨김 */
+        display: none;
     `;
     document.getElementById('main-content').appendChild(messageArea);
 
@@ -25,8 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             messageArea.style.display = 'none';
             messageArea.textContent = '';
         }, 3000);
-    }
-    
+    };
 
     tabLinks.forEach(link => {
         link.addEventListener('click', (e) => {
@@ -36,7 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentTab = tabId;
                 const newUrl = `${window.location.pathname}?submenu=${tabId}`;
                 history.pushState({tab: tabId}, '', newUrl);
-                showTab(tabId);
+                if (typeof window.showTab === 'function') {
+                    window.showTab(tabId);
+                }
             } else if (tabId !== 'add') {
                 if (window.showMessage) {
                     window.showMessage('현재는 서브메뉴 추가 기능만 활성화되어 있습니다.', false);
@@ -45,18 +45,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    window.addEventListener('popstate', (event) => {
+    window.addEventListener('popstate', () => {
         const params = new URLSearchParams(window.location.search);
         const tabFromUrl = params.get('submenu') || 'add';
         if (currentTab !== tabFromUrl && tabFromUrl === 'add') {
             currentTab = tabFromUrl;
-            showTab(currentTab);
+            if (typeof window.showTab === 'function') {
+                window.showTab(currentTab);
+            }
         } else if (tabFromUrl !== 'add') {
             history.replaceState({tab: 'add'}, '', `${window.location.pathname}?submenu=add`);
             currentTab = 'add';
-            showTab(currentTab);
+            if (typeof window.showTab === 'function') {
+                window.showTab(currentTab);
+            }
         }
     });
 
-    showTab(currentTab);
+    const params = new URLSearchParams(window.location.search);
+    const initialTab = params.get('submenu') || 'add';
+    if (typeof window.showTab === 'function') {
+        window.showTab(initialTab);
+    }
 });

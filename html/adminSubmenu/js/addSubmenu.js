@@ -52,6 +52,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <button type="submit" class="btn btn-primary">추가하기</button>
             </form>
+        `,
+        'delete': `
+            <h2>서브메뉴 삭제</h2>
+            <p>선택한 서브메뉴 항목을 삭제합니다. 삭제된 데이터는 복구할 수 없습니다.</p>
+            <form id="deleteSubmenuForm">
+                <div class="form-group">
+                    <label for="delete-submenu-id">서브메뉴 선택</label>
+                    <select id="delete-submenu-id" name="submenu_id" class="form-control" required>
+                        <option value="" selected disabled>-- 삭제할 서브메뉴를 선택하세요 --</option>
+                        </select>
+                </div>
+                <button type="submit" class="btn btn-danger">삭제하기</button>
+            </form>
         `
     };
 

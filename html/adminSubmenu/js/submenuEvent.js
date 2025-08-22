@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <option value="" selected disabled>-- 삭제할 서브메뉴를 선택하세요 --</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-danger">삭제하기</button>
+                <button type="submit" class="btn btn-primary">삭제하기</button>
             </form>
         `,
         'update': `

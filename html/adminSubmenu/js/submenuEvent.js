@@ -7,15 +7,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageArea = document.createElement('div');
     messageArea.id = 'status-message';
     messageArea.style.cssText = `
-        margin-top: 20px;
-        padding: 10px;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 300px;
+        max-width: 90%;
+        padding: 10px 20px;
         border-radius: 8px;
         font-weight: bold;
         text-align: center;
         display: none;
-        margin-right: 30vw;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     `;
-    document.getElementById('main-content').appendChild(messageArea);
+    document.body.appendChild(messageArea);
 
     window.showMessage = (message, isSuccess = true) => {
         messageArea.textContent = message;
